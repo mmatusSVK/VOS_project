@@ -1,1 +1,1 @@
-# VOS_project
+Matúš Salát VOS 2015 
