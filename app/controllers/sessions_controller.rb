@@ -1,11 +1,12 @@
 class SessionsController < ApplicationController
+
   def new
   end
 
   def create
-    user = User.find_by(login_name: params[:session][:login_name])
+    user = find_by_name(params[:session][:login_name])
     if user && user.authenticate(params[:session][:password])
-      log_in user
+      log_in_new_user user
       redirect_to user
     else
       flash.now[:danger] = 'Nesprávna kombinácia email/heslo'
@@ -14,9 +15,14 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    log_out
+    log_out_current_user
     redirect_to root_url
   end
 
+  private
+
+  def find_by_name(name)
+    User.find_by_sql("SELECT * FROM users WHERE login_name=\'#{name}\'").first
+  end
 
 end
