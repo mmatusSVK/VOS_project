@@ -1,0 +1,61 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+//vseobecne CSS
+
+body h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+}
+
+body h1 {
+  font-size: 2em;
+  letter-spacing: -2px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+body h2 {
+  font-size: 1.2em;
+  letter-spacing: -1px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-weight: normal;
+}
+
+body p {
+  font-size: 1.1em;
+  line-height: 1.7em;
+}
+
+//koniec vseobecneho CSS
+
+//rootPage css
+
+.center .jumbotron{
+  display: block;
+  margin: 0 auto;
+}
+
+.center .buttons {
+  margin: 10px 0 10px 0;
+  text-align: center;
+}
+
+//end of rootPage css
+
+//forms css
+
+.row {
+  text-align: center;
+}
+
+.row .btn{
+  margin: 20px auto 20px
+  auto;
+}
+
+.row label {
+  margin: 20px auto 5px auto;
+}
+
+//end of forms css
