@@ -4,7 +4,8 @@ class UsersController < ApplicationController
 
   def show
     @user = find_by_index(params[:id])
- #   @topic = Topic.find_by_sql("SELECT * FROM topics JOIN users ON users.id = topics.user_id")
+    #@topic = Topic.find_by_sql("SELECT * FROM topics JOIN users ON users.id = topics.user_id WHERE topics.user_id = #{params[:id]}")
+    @topic = @user.topics
   end
 
 
@@ -19,7 +20,7 @@ class UsersController < ApplicationController
   def is_user_logged
     unless logged_in?
       flash[:danger] = "Prosím prihláste sa."
-      redirect_to login
+      redirect_to login_path
     end
   end
 

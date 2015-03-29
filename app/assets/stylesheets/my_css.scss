@@ -63,9 +63,10 @@ body p {
 //header CSS
 
  header{
-   margin: 15px 15px 15px 15px;
-   border-radius: 20px 20px 20px 20px;
-   background-color: aquamarine;
+   margin: 10px 10px 10px 10px;
+   border-radius: 10px 10px 10px 10px
+ ;
+   background-color: #666666;
 }
 
 //end of header CSS
@@ -77,3 +78,24 @@ body p {
 }
 
 //end of showing user css
+
+//teacher content
+
+.my_content{
+  border: 1px solid black;
+  border-radius: 10px 10px 10px 10px;
+}
+
+.col-md-2{
+  margin-right: 2px;
+}
+
+.col-md-2 a {
+  display: block;
+}
+
+.new_section{
+  margin-top: 10px;
+}
+//end of teahcer content
+
