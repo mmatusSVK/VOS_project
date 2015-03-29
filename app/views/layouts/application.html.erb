@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>VOSProjekt</title>
+  <title><%= full_title(yield(:title)) %></title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
@@ -9,11 +9,17 @@
 
 
 <body>
-    <% flash.each do |message_type, message| %>
+
+    <%= render 'layouts/header' if show_header(yield(:header))  %>
+
+    <div class="container">
+      <% flash.each do |message_type, message| %>
         <div class="alert alert-<%= message_type %>"><%= message %></div>
-    <% end %>
-    <%= yield %>
-    <%= debug(params) if Rails.env.development? %>
+      <% end %>
+      <%= yield %>
+
+      <%= debug(params) if Rails.env.development? %>
+    </div>
 </body>
 
 </html>
