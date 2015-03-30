@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-md-9 my_content">
+    <h3>Nová téma</h3>
+
+
+    <div class="col-md-6 col-md-offset-3">
+      <%= form_for(@topic) do |t| %>
+          <%= render 'shared/error_messages', object: t.object %>
+          <%= t.label :topic_name %>
+          <%= t.text_field :topic_name, class: 'form-control' %>
+
+          <%= t.label :information %>
+          <%= t.text_area :information, class: 'form-control' %>
+
+          <%= t.submit "Vytvoriť tému", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+
+</div>

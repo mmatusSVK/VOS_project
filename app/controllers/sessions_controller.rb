@@ -8,10 +8,10 @@ class SessionsController < ApplicationController
     user = find_by_name(params[:session][:login_name])
     if user && user.authenticate(params[:session][:password])
       log_in_new_user user
-      flash.now[:success] = 'Nesprávna kombinácia email/heslo'
+      flash[:success] = 'Prihlásenie prebehlo úspešne.'
       redirect_to user
     else
-      flash.now[:danger] = 'Nesprávna kombinácia email/heslo'
+      flash.now[:danger] = 'Nesprávna kombinácia email/heslo.'
       render 'new'
     end
   end

@@ -8,12 +8,10 @@ class UsersController < ApplicationController
     @topic = @user.topics
   end
 
-
   private
 
   def user_params
-    params.require(:user).permit(:login_name,:password,
-                                 :password_confirmation)
+    params.require(:user).permit(:login_name, :password, :password_confirmation)
   end
 
   def is_user_logged

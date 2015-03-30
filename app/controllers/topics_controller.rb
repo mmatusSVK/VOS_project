@@ -14,13 +14,34 @@ class TopicsController < ApplicationController
     # code here
   end
 
+  def edit
+
+  end
+
+  def destroy
+
+  end
+
   def new
     @topic = Topic.new
   end
 
-
+  def create
+    @topic = current_user.topics.build(topic_params)
+    if @topic.save
+      flash[:success] = "Téma úspešne pridaná"
+      redirect_to topics_path
+    else
+      @topic = []
+      redirect_to new_topic_path
+    end
+  end
 
   private
+
+  def topic_params
+    params.require(:topic).permit(:topic_name, :information, :user_id)
+  end
 
   def is_user_logged
     unless logged_in?
