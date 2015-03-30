@@ -21,8 +21,6 @@ module SessionsHelper
     user == current_user
   end
 
-
-
   private
 
   def find_by_session_id(id)

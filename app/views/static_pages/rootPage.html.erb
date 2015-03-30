@@ -1,12 +1,14 @@
+<% provide(:isRoot, 'true') %>
+
 <div class="center jumbotron">
   <h1>Vitajte na stránke interaktívnych prednášok!</h1>
 
 
 <div class="buttons">  
-  <%= link_to "Chcem sa zaregistrovať!", '#', class: "btn btn-lg btn-primary" %>
-</div>
-<div class="buttons"> 
- <%= link_to "Prihlásiť sa.", login_path, class: "btn btn-sm btn-primary" %>
+  <%= link_to "Chcem sa zaregistrovať!", '', class: "btn btn-lg btn-primary" %>
+    </div>
+  <div class="buttons">
+  <%= link_to "Prihlásiť sa.", login_path, class: "btn btn-sm btn-primary" %>
 </div>
 </div>
 

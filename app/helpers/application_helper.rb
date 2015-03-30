@@ -9,8 +9,8 @@ module ApplicationHelper
     end
   end
 
-  def show_header(header_on = '')
-    if header_on.empty?
+  def root_page?(isRoot = '')
+    if isRoot.empty?
       false
     else
       true

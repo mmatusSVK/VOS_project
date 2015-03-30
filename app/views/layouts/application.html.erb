@@ -9,13 +9,15 @@
 
 
 <body>
-
-    <%= render 'layouts/header' if show_header(yield(:header))  %>
+    <%= render 'layouts/header' if logged_in? %>
 
     <div class="container">
       <% flash.each do |message_type, message| %>
         <div class="alert alert-<%= message_type %>"><%= message %></div>
       <% end %>
+
+      <%= render 'layouts/leftmenu' if logged_in? && !root_page?(yield(:isRoot)) %>
+
       <%= yield %>
 
       <%= debug(params) if Rails.env.development? %>

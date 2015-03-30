@@ -1,19 +1,6 @@
 <% provide(:title, 'Menu') %>
-<% provide(:header, 'true') %>
-
 
 <div class="row">
-  <div class="col-md-2 my_content">
-      <h3>Menu</h3>
-    <%= link_to "Hlavné menu", @user %>
-
-    <a href="" class="new_section">
-      Nastavenia tém<b class="caret"></b>
-    </a>
-    <ul>
-      <li><%= link_to 'Nová téma','topics/new' %></li>
-    </ul>
-  </div>
 
   <div class="col-md-9 my_content">
     <h3>Content</h3>
@@ -21,6 +8,7 @@
         <h3><%= link_to t.topic_name, t %></h3>
     <% end %>
     </div>
+
 </div>
 
 
