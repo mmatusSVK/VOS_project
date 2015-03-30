@@ -1,12 +1,14 @@
 class SessionsController < ApplicationController
 
   def new
+    redirect_to current_user unless current_user.nil? 
   end
 
   def create
     user = find_by_name(params[:session][:login_name])
     if user && user.authenticate(params[:session][:password])
       log_in_new_user user
+      flash.now[:success] = 'Nesprávna kombinácia email/heslo'
       redirect_to user
     else
       flash.now[:danger] = 'Nesprávna kombinácia email/heslo'

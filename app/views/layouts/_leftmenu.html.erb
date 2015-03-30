@@ -1,11 +1,12 @@
 <section class="row col-md-2 my_content left_menu">
   <h3>Menu</h3>
-  <%= link_to "Hlavné menu", @user %>
+  <%= link_to "Hlavné menu", @current_user %>
 
   <a href="" class="new_section">
     Nastavenia tém<b class="caret"></b>
   </a>
   <ul>
-    <li><%= link_to 'Nová téma','topics/new' %></li>
+    <li><%= link_to 'Zoznam tém', topics_path %></li>
+    <li><%= link_to 'Nová téma', new_topic_path %></li>
   </ul>
 </section>

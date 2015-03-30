@@ -2,6 +2,10 @@ class TopicsController < ApplicationController
   before_action :is_user_logged, only: [:show]
   before_action :am_i_right_user,   only: [:show]
 
+  def index
+    @topic = Topic.find_by_sql("SELECT * FROM topics JOIN users ON users.id = topics.user_id WHERE users.id = #{current_user.id}")
+  end
+
   def show
     @topic = Topic.find_by_sql("SELECT * FROM topics WHERE topics.id = #{params[:id]}").first
   end
@@ -9,6 +13,12 @@ class TopicsController < ApplicationController
   def update
     # code here
   end
+
+  def new
+    @topic = Topic.new
+  end
+
+
 
   private
 
@@ -24,7 +34,4 @@ class TopicsController < ApplicationController
     redirect_to(root_url) unless current_user?(@user)
   end
 
-  def find_by_index(index)
-    User.find_by_sql("SELECT * FROM users WHERE id = (SELECT user_id FROM topics WHERE topics.id = #{params[:id]})").first
-  end
 end

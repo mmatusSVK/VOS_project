@@ -9,7 +9,6 @@ class UsersController < ApplicationController
   end
 
 
-
   private
 
   def user_params
@@ -29,8 +28,5 @@ class UsersController < ApplicationController
     redirect_to(root_url) unless current_user?(@user)
   end
 
-#OR mapovac nezabudni to dat prec TODO
-  def find_by_index(index)
-    User.find_by_sql("SELECT * FROM users WHERE id = #{params[:id]}").first
-  end
+
 end
