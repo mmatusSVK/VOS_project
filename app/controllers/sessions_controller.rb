@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
 
   def new
-    redirect_to current_user unless current_user.nil? 
+    redirect_to current_user unless current_user.nil?
   end
 
   def create
