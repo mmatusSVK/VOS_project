@@ -4,6 +4,7 @@
     <h3>Témy</h3>
     <% @topic.each do |t| %>
         <h3><%= link_to t.topic_name, t %></h3>
+        <%= t.id %>
     <% end %>
   </div>
 

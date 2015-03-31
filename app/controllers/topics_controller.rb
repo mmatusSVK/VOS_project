@@ -1,21 +1,28 @@
 class TopicsController < ApplicationController
-  before_action :is_user_logged, only: [:show]
-  before_action :am_i_right_user,   only: [:show]
+  before_action :is_user_logged,    only: [:show, :index, :new, :update]
+  before_action :am_i_right_user,   only: [:show, :index, :new, :update]
 
   def index
-    @topic = Topic.find_by_sql("SELECT * FROM topics JOIN users ON users.id = topics.user_id WHERE users.id = #{current_user.id}")
+    @topic = current_user.topics
+    #@topic = Topic.find_by_sql("SELECT * FROM topics JOIN users ON users.id = topics.user_id WHERE users.id = #{current_user.id}") #TODO otazka
   end
 
   def show
     @topic = Topic.find_by_sql("SELECT * FROM topics WHERE topics.id = #{params[:id]}").first
   end
 
-  def update
-    # code here
+  def edit
+    @topic = find_by_index(params[:id])
   end
 
-  def edit
-
+  def update
+    @topic = find_by_index(params[:id])
+    if @user.update_attributes(user_params)
+      flash[:success] = "Profile updated"
+      redirect_to @user
+    else
+      render 'edit'
+    end
   end
 
   def destroy
@@ -27,16 +34,20 @@ class TopicsController < ApplicationController
   end
 
   def create
-    @topic = current_user.topics.build(topic_params)
+    @topic = current_user.topics.build(topic_params) #TODO create zaznam
     if @topic.save
       flash[:success] = "Téma úspešne pridaná"
       redirect_to topics_path
     else
       @topic = []
-      redirect_to new_topic_path
+      render 'new'
     end
   end
 
+
+
+
+  
   private
 
   def topic_params
@@ -45,7 +56,7 @@ class TopicsController < ApplicationController
 
   def is_user_logged
     unless logged_in?
-      flash.now[:danger] = "Prosím prihláste sa."
+      flash[:danger] = "Prosím prihláste sa."
       redirect_to login_path
     end
   end
