@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :am_i_right_user,   only: [:show]
 
   def show
-    @user = find_by_index(params[:id])
+    @user = find_by_index_user(params[:id])
 
     #@topic = Topic.find_by_sql("SELECT * FROM topics JOIN users ON users.id = topics.user_id WHERE topics.user_id = #{params[:id]}")
     @topic = @user.topics
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   end
 
   def am_i_right_user
-    @user = find_by_index(params[:id])
+    @user = find_by_index_user(params[:id])
     redirect_to(root_url) unless current_user?(@user)
   end
 

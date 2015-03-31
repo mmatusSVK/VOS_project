@@ -12,14 +12,14 @@ class TopicsController < ApplicationController
   end
 
   def edit
-    @topic = find_by_index(params[:id])
+    @topic = find_by_index_topic(params[:id])
   end
 
   def update
-    @topic = find_by_index(params[:id])
-    if @user.update_attributes(user_params)
-      flash[:success] = "Profile updated"
-      redirect_to @user
+    @topic = find_by_index_topic(params[:id])
+    if @topic.update_attributes(topic_params)
+      flash[:success] = "Téma upravená"
+      redirect_to topics_path
     else
       render 'edit'
     end
@@ -47,7 +47,7 @@ class TopicsController < ApplicationController
 
 
 
-  
+
   private
 
   def topic_params
@@ -62,7 +62,11 @@ class TopicsController < ApplicationController
   end
 
   def am_i_right_user
-    @user = find_by_index(Topic.find_by_sql("SELECT * FROM topics WHERE topics.id = #{params[:id]}").first.user_id)
+    if(params[:id] != nil)
+      @user = find_by_index_user(Topic.find_by_sql("SELECT * FROM topics WHERE topics.id = #{params[:id]}").first.user_id)
+    else
+      @user = @current_user
+    end
     redirect_to(root_url) unless current_user?(@user)
   end
 
