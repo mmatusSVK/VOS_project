@@ -4,9 +4,8 @@ class UsersController < ApplicationController
 
   def show
     @user = find_by_index_user(params[:id])
-
-    #@topic = Topic.find_by_sql("SELECT * FROM topics JOIN users ON users.id = topics.user_id WHERE topics.user_id = #{params[:id]}")
-    @topic = @user.topics
+    @topic = Topic.find_by_sql("SELECT t.id, t.topic_name, t.information, t.user_id FROM topics t JOIN users ON users.id = t.user_id WHERE t.user_id = #{params[:id]}")
+    #@topic = @user.topics
   end
 
   private

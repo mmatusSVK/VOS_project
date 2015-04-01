@@ -3,8 +3,8 @@ class TopicsController < ApplicationController
   before_action :am_i_right_user,   only: [:show, :index, :new, :update]
 
   def index
-    @topic = current_user.topics
-    #@topic = Topic.find_by_sql("SELECT * FROM topics JOIN users ON users.id = topics.user_id WHERE users.id = #{current_user.id}") #TODO otazka
+    #@topic = current_user.topics
+    @topic = Topic.find_by_sql("SELECT t.id, t.topic_name, t.user_id, t.information FROM topics t JOIN users ON users.id = t.user_id WHERE users.id = #{current_user.id}") #TODO otazka
   end
 
   def show
@@ -16,8 +16,8 @@ class TopicsController < ApplicationController
   end
 
   def update
-    @topic = find_by_index_topic(params[:id])
-    if @topic.update_attributes(topic_params)
+    #@topic = find_by_index_topic(params[:id])  #TODO zobrazit po DB odovzdani
+    if update_in_database(topic_id_from_params, topic_params) #@topic.update_attributes(topic_params)
       flash[:success] = "Téma upravená"
       redirect_to topics_path
     else
@@ -34,8 +34,8 @@ class TopicsController < ApplicationController
   end
 
   def create
-    @topic = current_user.topics.build(topic_params) #TODO create zaznam
-    if @topic.save
+    #@topic = current_user.topics.build(topic_params) #TODO zobrazit po DB odovzdani
+    if add_to_database(user_id_from_params, topic_params) #@topic.save
       flash[:success] = "Téma úspešne pridaná"
       redirect_to topics_path
     else
@@ -50,8 +50,16 @@ class TopicsController < ApplicationController
 
   private
 
+  def user_id_from_params
+    params.require(:user_id)
+  end
+
+  def topic_id_from_params
+    params.require(:id)
+  end
+
   def topic_params
-    params.require(:topic).permit(:topic_name, :information, :user_id)
+    params.require(:topic).permit(:topic_name, :information)
   end
 
   def is_user_logged
