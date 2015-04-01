@@ -26,7 +26,13 @@ class TopicsController < ApplicationController
   end
 
   def destroy
+    #@topic = Topic.find_by(id: params[:id])  #TODO zobrazit po DB odovzdani
+    if delete_in_database(topic_id_from_params) #@topic.destroy
+      flash[:success] = "Téma odstránená"
+      redirect_to topics_path
+    end
 
+    #TODO else??
   end
 
   def new

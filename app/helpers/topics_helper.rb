@@ -18,4 +18,10 @@ module TopicsHelper
     connection.execute(query)
   end
 
+  def delete_in_database(id)
+    connection = ActiveRecord::Base.connection
+    query = "DELETE FROM topics WHERE topics.id = #{id}"
+    connection.execute(query)
+  end
+
 end
