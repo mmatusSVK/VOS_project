@@ -1,5 +1,6 @@
 class Topic < ActiveRecord::Base
   belongs_to :user
+  has_many :questions
   validates(:user_id, presence: true)
   validates(:topic_name, presence: true, length: {minimum:1, maximum: 50})
   validates(:information, presence: true, length: {minimum:1, maximum: 400})

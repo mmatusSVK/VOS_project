@@ -9,6 +9,7 @@ class TopicsController < ApplicationController
 
   def show
     @topic = Topic.find_by_sql("SELECT * FROM topics WHERE topics.id = #{params[:id]}").first
+    @question = Question.find_by_sql("SELECT q.id,q.question_name FROM questions q JOIN topics ON q.topic_id = topics.id WHERE q.topic_id = #{params[:id]}")
   end
 
   def edit

@@ -1,8 +1,11 @@
 <% provide(:title, 'Upravovanie tém') %>
+<% make_current_topic_null %>
+<% current_topic(@topic.id) %>
+
 <div class="row">
   <div class="col-md-9 my_content">
-    <h3><strong>Úprava témy <%= @topic.topic_name %></strong></h3>
 
+    <h3><strong>Úprava témy <%= @topic.topic_name %></strong></h3>
 
     <div class="col-md-6 col-md-offset-3">
       <%= form_for(@topic) do |t| %>

@@ -3,11 +3,19 @@
   <h3><strong>Menu</strong></h3>
   <%= link_to "Úvodná stránka", @current_user %>
 
-  <a href="" class="new_section">
-    Nastavenia tém<b class="caret"></b>
-  </a>
+  <a href="" class="new_section">Nastavenia tém<b class="caret"></b></a>
   <ul>
     <li><%= link_to 'Zoznam tém', topics_path %></li>
     <li><%= link_to 'Nová téma', new_topic_path %></li>
+  </ul>
+    <% if !@current_topic.nil? %>
+        <a href="" class="new_section">Téma <%= @current_topic.topic_name %><b class="caret"></b></a>
+        <ul>
+            <li><%= link_to 'Uprav tému', edit_topic_path(@topic) %></li>
+            <li><%= link_to 'Vymaž tému', @topic, method: :delete, data: { confirm: 'Ste si istý, že chcete vymazať tému a všetky prislúchajúce otázky?' } %></li>
+            <li><%= link_to 'Zoznam otázok', questions_path %></li>
+            <li><%= link_to 'Nová otázka', new_question_path %></li>
+        </ul>
+    <% end %>
   </ul>
 </section>

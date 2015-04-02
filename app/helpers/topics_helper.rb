@@ -24,4 +24,13 @@ module TopicsHelper
     connection.execute(query)
   end
 
+
+  def current_topic(index)
+    @current_topic ||= find_by_index_topic(index)
+  end
+
+  def make_current_topic_null
+    @current_topic = nil
+  end
+
 end

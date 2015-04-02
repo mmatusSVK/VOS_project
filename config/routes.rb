@@ -3,10 +3,7 @@ Rails.application.routes.draw do
 
   resources :users
   resources :topics
-
-  namespace :admin do
-    resources :articles, :comments
-  end
+  resources :questions
 
  # get 'signup' => 'users#new'
 
