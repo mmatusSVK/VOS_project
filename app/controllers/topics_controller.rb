@@ -24,7 +24,6 @@ class TopicsController < ApplicationController
   end
 
   def update
-    #@topic = find_by_index_topic(params[:id])  #TODO zobrazit po DB odovzdani
     if update_in_database(topic_id_from_params, topic_params) #@topic.update_attributes(topic_params)
       flash[:success] = "Téma upravená"
       redirect_to user_topics_path(@login_user)

@@ -1,5 +1,7 @@
 class QuestionsController < ApplicationController
   before_action :set_current_topic
+  before_action :is_user_logged
+  before_action :am_i_right_user
 
   before_filter :get_user, :get_topic
 
@@ -27,6 +29,21 @@ class QuestionsController < ApplicationController
 
   def set_current_topic
     current_topic(params[:topic_id])
+  end
+
+  def question_params
+    params.require(:question).permit(:question_name)
+  end
+
+  def is_user_logged
+    unless logged_in?
+      flash[:danger] = "Prosím prihláste sa."
+      redirect_to login_path
+    end
+  end
+
+  def am_i_right_user
+#TODO dorobit kontrolu pri otazkach
   end
 
 end

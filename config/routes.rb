@@ -3,7 +3,9 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :topics do
-      resources :questions
+      resources :questions do
+        resources :answers
+      end
     end
   end
 
