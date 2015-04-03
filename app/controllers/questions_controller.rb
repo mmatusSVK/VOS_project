@@ -17,15 +17,49 @@ class QuestionsController < ApplicationController
     @question = Question.find_by_sql("SELECT q.id, q.question_name, q.topic_id FROM questions q JOIN topics ON topics.id = q.topic_id WHERE topics.id = #{@select_topic.id}")
   end
 
-  def new
+  def show
+    @question = find_by_index_question(params[:id])
+  end
 
+  def edit
+    @question = find_by_index_question(params[:id])
+  end
+
+  def update
+    if update_in_database_question(question_id_from_params, question_params) #@question.update_attributes(topic_params)
+      flash[:success] = "Otázka upravená"
+      redirect_to user_topic_questions_path(@login_user, @current_topic)
+    else
+      render 'edit'
+    end
+  end
+
+  def new
+    @question = Question.new
   end
 
   def create
+    if add_to_database_question(@current_topic.id, question_params) #@question.save
+      flash[:success] = "Otázka úspešne pridaná"
+      redirect_to user_topic_questions_path(@login_user, @current_topic)
+    else
+      @topic = []
+      render 'new'
+    end
+  end
 
+  def destroy
+    if delete_in_database_question(question_id_from_params) #@question.destroy
+      flash[:success] = "Otázka odstránená"
+      redirect_to user_topic_questions_path(@login_user, @current_topic)
+    end
   end
 
   private
+
+  def question_id_from_params
+    params.require(:id)
+  end
 
   def set_current_topic
     current_topic(params[:topic_id])
@@ -43,7 +77,7 @@ class QuestionsController < ApplicationController
   end
 
   def am_i_right_user
-#TODO dorobit kontrolu pri otazkach
+    #TODO dorobit kontrolu pri otazkach
   end
 
 end

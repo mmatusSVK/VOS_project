@@ -24,7 +24,7 @@ class TopicsController < ApplicationController
   end
 
   def update
-    if update_in_database(topic_id_from_params, topic_params) #@topic.update_attributes(topic_params)
+    if update_in_database_topic(topic_id_from_params, topic_params) #@topic.update_attributes(topic_params)
       flash[:success] = "Téma upravená"
       redirect_to user_topics_path(@login_user)
     else
@@ -34,7 +34,7 @@ class TopicsController < ApplicationController
 
   def destroy
     #@topic = Topic.find_by(id: params[:id])  #TODO zobrazit po DB odovzdani
-    if delete_in_database(topic_id_from_params) #@topic.destroy
+    if delete_in_database_topic(topic_id_from_params) #@topic.destroy
       flash[:success] = "Téma odstránená"
       redirect_to user_topics_path(@login_user)
     end
@@ -48,7 +48,7 @@ class TopicsController < ApplicationController
 
   def create
     #@topic = current_user.topics.build(topic_params) #TODO zobrazit po DB odovzdani
-    if add_to_database(@login_user.id, topic_params) #@topic.save
+    if add_to_database_topic(@login_user.id, topic_params) #@topic.save
       flash[:success] = "Téma úspešne pridaná"
       redirect_to user_topics_path(@login_user)
     else
