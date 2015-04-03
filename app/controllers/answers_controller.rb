@@ -11,7 +11,7 @@ class AnswersController < ApplicationController
   end
 
   def get_question
-    @current_question = find_by_index_question(params[:question_id])
+    @select_question = find_by_index_question(params[:question_id])
   end
 
 end

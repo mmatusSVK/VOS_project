@@ -3,12 +3,14 @@
 
 <div class="row">
 
-  <div class="col-md-9 my_content">
+  <div class="col-md-9 my_content show_q">
     <h3><strong><%= @topic.topic_name %></strong></h3>
     <p>Znenie témy: <%= @topic.information %></p>
     Počet otázok: <%= @count_of_question %>
     <% @question.each do |q| %>
-        <p>- <%=link_to q.question_name, [@login_user, @topic, q] %></p>
+        <p>- <%=link_to q.question_name, [@login_user, @topic, q] %>
+          (<%= link_to "Edituj otázku", edit_user_topic_question_path(@login_user, @current_topic, q) %>,
+          <%= link_to "Vymaž otázku", [@login_user, @current_topic, q], method: :delete, data: { confirm: 'Ste si istý, že chcete vymazať otázku?' }  %>)</p>
     <% end %>
   </div>
 

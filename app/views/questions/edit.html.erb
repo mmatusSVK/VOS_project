@@ -1,0 +1,23 @@
+<% current_question(@question.id) %>
+<% provide(:title, 'Úprava otázky') %>
+
+<div class="row">
+  <div class="col-md-9 my_content">
+
+    <h3><strong>Úprava otázky <%= @question.question_name %></strong></h3>
+
+    <div class="col-md-6 col-md-offset-3">
+      <%= form_for([@login_user, @select_topic, @question]) do |t| %>
+          <%= render 'shared/error_messages', object: t.object %>
+
+          <%= hidden_field_tag :topic_id, @current_topic.id %>
+
+          <%= t.label :question_name %>
+          <%= t.text_area :question_name, class: 'form-control' %>
+
+          <%= t.submit "Upraviť otázku", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+
+</div>

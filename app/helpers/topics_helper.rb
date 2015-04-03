@@ -34,8 +34,4 @@ module TopicsHelper
     @current_topic ||= find_by_index_topic(index)
   end
 
-  def make_current_topic_null
-    @current_topic = nil
-  end
-
 end

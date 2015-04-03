@@ -23,4 +23,8 @@ module QuestionsHelper
     connection.execute(query)
   end
 
+  def current_question(index)
+    @current_question ||= find_by_index_question(index)
+  end
+
 end

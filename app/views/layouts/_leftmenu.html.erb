@@ -9,13 +9,31 @@
   </ul>
 
     <% if !@current_topic.nil? %>
-        <a href="" class="new_section">Téma <%= @current_topic.topic_name %><b class="caret"></b></a>
+        <a href=''   class="new_section">Téma <%= @current_topic.topic_name %><b class="caret"></b></a>
         <ul>
-            <li><%= link_to 'Uprav tému', edit_user_topic_path(@login_user, @current_topic) %></li>
-            <li><%= link_to 'Vymaž tému', [@login_user, @current_topic], method: :delete, data: { confirm: 'Ste si istý, že chcete vymazať tému a všetky prislúchajúce otázky?' } %></li>
             <li><%= link_to 'Zoznam otázok', user_topic_questions_path(@login_user, @current_topic) %></li>
             <li><%= link_to 'Nová otázka', new_user_topic_question_path(@login_user, @current_topic) %></li>
+            <li><%= link_to 'Uprav tému', edit_user_topic_path(@login_user, @current_topic) %></li>
+            <li><%= link_to 'Vymaž tému', [@login_user, @current_topic], method: :delete, data: { confirm: 'Ste si istý, že chcete vymazať tému a všetky prislúchajúce otázky?' } %></li>
         </ul>
+    <% end %>
+
+    <% if !@current_question.nil? %>
+    <a href="" class="new_section dropdown-toggle" data-toggle="dropdown">Otázka ...<b class="caret"></b></a>
+
+
+      <!--   <ul class="dropdown-menu">
+        <li><%= link_to @current_question.question_name, '' %></li>
+      </ul> -->
+
+     <!-- TODO -->
+
+      <ul>
+        <li><%= link_to 'Zoznam opovedí', user_topic_question_answers_path(@login_user, @current_topic, @current_question) %></li>
+        <li><%= link_to 'Nová odpoveď', new_user_topic_question_answer_path(@login_user, @current_topic, @current_question) %></li>
+        <li><%= link_to 'Uprav otázku', edit_user_topic_question_path(@login_user, @current_topic, @current_question) %></li>
+        <li><%= link_to 'Vymaž otázku', [@login_user, @current_topic, @current_question], method: :delete, data: { confirm: 'Ste si istý, že chcete vymazať otázku?' } %></li>
+      </ul>
     <% end %>
 
   </ul>
