@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   root 'static_pages#rootPage'
 
-  resources :users
-  resources :topics
+  resources :users do
+    resources :topics
+  end
   resources :questions
 
  # get 'signup' => 'users#new'

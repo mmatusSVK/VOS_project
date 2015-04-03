@@ -7,7 +7,7 @@
 
 
     <div class="col-md-6 col-md-offset-3">
-      <%= form_for(@topic) do |t| %>
+      <%= form_for([@login_user, @topic]) do |t| %>
           <%= render 'shared/error_messages', object: t.object %>
 
           <%= hidden_field_tag :user_id, current_user.id %>
