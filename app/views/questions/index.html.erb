@@ -1,14 +1,16 @@
-<% provide(:title, 'Otázky - ' + @current_topic.topic_name) %>
+<% provide(:title, 'Otázky - ' + @select_topic.topic_name) %>
 
 <div class="row">
 
   <div class="col-md-9 my_content">
-    <h3><strong>Otázky na tému <%= @current_topic.topic_name %></strong></h3>
+    <h3><strong>Otázky na tému <%= @select_topic.topic_name %></strong></h3>
+
     <% @question.each do |q| %>
-        <h3><%= link_to q.question_name, q %></h3>
-        <%= link_to "Edituj otázku", edit_question_path(q) %>
-        <%= link_to "Vymaž otázku", q, method: :delete, data: { confirm: 'Ste si istý, že chcete vymazať otázku?' }  %>
+        <h3><%= link_to q.question_name, [@login_user, @select_topic, q] %></h3>
+        <%= link_to "Edituj otázku", edit_user_topic_question_path(@login_user, @select_topic, q) %>
+        <%= link_to "Vymaž otázku", [@login_user, @select_topic, q], method: :delete, data: { confirm: 'Ste si istý, že chcete vymazať otázku?' }  %>
     <% end %>
+
   </div>
 
 </div>

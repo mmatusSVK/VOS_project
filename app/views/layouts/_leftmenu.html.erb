@@ -4,17 +4,19 @@
 
   <a href="" class="new_section">Nastavenia tém<b class="caret"></b></a>
   <ul>
-    <li><%= link_to 'Zoznam tém', user_topics_path(@login_user) %></li>
-    <li><%= link_to 'Nová téma', new_user_topic_path(@login_user) %></li>
+    <li><%= link_to 'Zoznam tém', user_topics_path(@current_user) %></li>
+    <li><%= link_to 'Nová téma', new_user_topic_path(@current_user) %></li>
   </ul>
+
     <% if !@current_topic.nil? %>
         <a href="" class="new_section">Téma <%= @current_topic.topic_name %><b class="caret"></b></a>
         <ul>
-            <li><%= link_to 'Uprav tému', edit_user_topic_path(@login_user, @topic) %></li>
-            <li><%= link_to 'Vymaž tému', [@login_user, @topic], method: :delete, data: { confirm: 'Ste si istý, že chcete vymazať tému a všetky prislúchajúce otázky?' } %></li>
-            <li><%= link_to 'Zoznam otázok', questions_path %></li>
-            <li><%= link_to 'Nová otázka', new_question_path %></li>
+            <li><%= link_to 'Uprav tému', edit_user_topic_path(@login_user, @current_topic) %></li>
+            <li><%= link_to 'Vymaž tému', [@login_user, @current_topic], method: :delete, data: { confirm: 'Ste si istý, že chcete vymazať tému a všetky prislúchajúce otázky?' } %></li>
+            <li><%= link_to 'Zoznam otázok', user_topic_questions_path(@login_user, @current_topic) %></li>
+            <li><%= link_to 'Nová otázka', new_user_topic_question_path(@login_user, @current_topic) %></li>
         </ul>
     <% end %>
+
   </ul>
 </section>
