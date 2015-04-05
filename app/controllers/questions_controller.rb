@@ -19,6 +19,8 @@ class QuestionsController < ApplicationController
 
   def show
     @question = find_by_index_question(params[:id])
+    #current_question(params[:id])
+    redirect_to user_topic_question_answers_path(@login_user, @select_topic, @question)
   end
 
   def edit

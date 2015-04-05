@@ -6,5 +6,6 @@ class ApplicationController < ActionController::Base
   include UsersHelper
   include TopicsHelper
   include QuestionsHelper
+  include AnswersHelper
 
 end

@@ -1,0 +1,21 @@
+<% current_question(@select_question.id) %>
+<% provide(:title, 'Odpovede') %>
+
+<div class="row">
+
+  <div class="col-md-9 my_content">
+    <h3><strong>Odpovede otázky: <%= @select_question.question_name %></strong></h3>
+
+    <% @answers.each do |a| %>
+        <% if a.is_right == false %>
+            <% bool = 'nesprávna' %>
+        <% else %>
+            <% bool = 'správna' %>
+        <% end %>
+        <h3><%=  a.answer_name + ': ' + bool%></h3>
+        <%= link_to "Vymaž odpoveď", [@login_user, @select_topic, @select_question, a], method: :delete, data: { confirm: 'Ste si istý, že chcete vymazať odpoveď?' }  %>
+    <% end %>
+
+  </div>
+
+</div>
