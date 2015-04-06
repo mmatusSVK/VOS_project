@@ -64,12 +64,15 @@ body p {
 }
 
 .row .btn{
-  margin: 20px auto 20px
-  auto;
+  margin: 20px auto 20px auto;
 }
 
 .row label {
   margin: 20px auto 5px auto;
+}
+
+.row .checkbox{
+  margin: 0 auto;
 }
 
 //end of forms css
@@ -77,21 +80,12 @@ body p {
 //header CSS
 
  header{
-   margin: 10px 10px 10px 10px;
-   border-radius: 10px 10px 10px 10px
- ;
+   margin: 10px 10px 20px 10px;
+   border-radius: 10px 10px 10px 10px;
    background-color: #666666;
 }
 
 //end of header CSS
-
-//showing user CSS
-
-.row{
-  margin-top: 10px;
-}
-
-//end of showing user css
 
 //teacher content
 
@@ -102,7 +96,6 @@ body p {
 
 .col-md-2{
   margin-right: 10px;
-  margin-top: 10px;
   margin-left: 20px;
 }
 
@@ -113,6 +106,7 @@ body p {
 .new_section{
   margin-top: 10px;
 }
+
 //end of teahcer content
 
 //errors in form CSS
@@ -131,13 +125,5 @@ body p {
     color: $state-danger-text;
   }
 }
-
-//topic show CSS
-
-.show_q p a{
-
-}
-
-//end of topic show
 
 //end of errors in form CSS

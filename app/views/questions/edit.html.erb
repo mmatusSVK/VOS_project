@@ -12,7 +12,7 @@
 
           <%= hidden_field_tag :topic_id, @current_topic.id %>
 
-          <%= t.label :question_name %>
+          <%= t.label :question_name, text="Meno otázky" %>
           <%= t.text_area :question_name, class: 'form-control' %>
 
           <%= t.submit "Upraviť otázku", class: "btn btn-primary" %>

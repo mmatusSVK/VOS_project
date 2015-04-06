@@ -12,10 +12,10 @@
 
           <%= hidden_field_tag :user_id, current_user.id %>
 
-          <%= t.label :topic_name %>
+          <%= t.label :topic_name, text="Meno témy"  %>
           <%= t.text_field :topic_name, class: 'form-control' %>
 
-          <%= t.label :information %>
+          <%= t.label :information, text="Popis"  %>
           <%= t.text_area :information, class: 'form-control' %>
 
           <%= t.submit "Upraviť tému", class: "btn btn-primary" %>

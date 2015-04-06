@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   validates(:login_name, uniqueness:{case_sensitive: false})
 
+  default_scope -> { order(created_at: :desc) }
+
   has_secure_password
 
   has_many :topics, dependent: :destroy

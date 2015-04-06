@@ -14,12 +14,12 @@ class QuestionsController < ApplicationController
   end
 
   def index
-    @question = Question.find_by_sql("SELECT q.id, q.question_name, q.topic_id FROM questions q JOIN topics ON topics.id = q.topic_id WHERE topics.id = #{@select_topic.id}")
+    @question = Question.find_by_sql("SELECT q.id, q.question_name, q.topic_id, q.created_at FROM questions q JOIN topics ON topics.id = q.topic_id WHERE topics.id = #{@select_topic.id}")
+    @count_of_question = select_count_of_questions(@select_topic.id).first["count"]
   end
 
   def show
     @question = find_by_index_question(params[:id])
-    #current_question(params[:id])
     redirect_to user_topic_question_answers_path(@login_user, @select_topic, @question)
   end
 
@@ -45,7 +45,7 @@ class QuestionsController < ApplicationController
       flash[:success] = "Otázka úspešne pridaná"
       redirect_to user_topic_questions_path(@login_user, @current_topic)
     else
-      @topic = []
+      @question = []
       render 'new'
     end
   end

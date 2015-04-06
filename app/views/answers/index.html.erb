@@ -13,6 +13,7 @@
             <% bool = 'správna' %>
         <% end %>
         <h3><%=  a.answer_name + ': ' + bool%></h3>
+        <%= link_to "Uprav odpoveď", edit_user_topic_question_answer_path(@login_user, @select_topic, @select_question, a) %>
         <%= link_to "Vymaž odpoveď", [@login_user, @select_topic, @select_question, a], method: :delete, data: { confirm: 'Ste si istý, že chcete vymazať odpoveď?' }  %>
     <% end %>
 

@@ -5,6 +5,21 @@
   <div class="col-md-9 my_content">
     <h3><strong>Nová odpoveď</strong></h3>
 
+    <div class="col-md-6 col-md-offset-3">
+      <%= form_for([@login_user, @select_topic, @select_question, @answer]) do |a| %>
+          <%= render 'shared/error_messages', object: a.object %>
+
+          <%= hidden_field_tag :question_id, @select_question.id %>
+
+          <%= a.label :answer_name, text="Znenie odpovede" %>
+          <%= a.text_area :answer_name, class: 'form-control' %>
+
+          <%= a.label :is_right, text="Správna?" %>
+          <%= a.check_box :is_right , class:"checkbox" %>
+
+          <%= a.submit "Pridať otázku", class: "btn btn-primary" %>
+      <% end %>
+    </div>
 
   </div>
 
