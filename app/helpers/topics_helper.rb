@@ -30,6 +30,12 @@ module TopicsHelper
     connection.execute(query)
   end
 
+  def find_all_question_counts
+    connection = ActiveRecord::Base.connection
+    query = "SELECT COUNT(*) as count, t.id FROM topics t JOIN questions q ON t.id = q.topic_id GROUP BY t.id"
+    connection.execute(query)
+  end
+
   def current_topic(index)
     @current_topic ||= find_by_index_topic(index)
   end

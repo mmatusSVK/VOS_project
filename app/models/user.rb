@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_secure_password
 
   has_many :topics, dependent: :destroy
+  has_many :tests, dependent: :destroy
 
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost

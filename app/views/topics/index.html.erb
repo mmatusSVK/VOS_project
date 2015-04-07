@@ -6,7 +6,15 @@
   <div class="col-md-9 my_content">
     <h3><strong>Témy</strong></h3>
     <% @topic.each do |t| %>
-        <h3><%= link_to t.topic_name, [@login_user, t] %></h3>
+
+        <% @current_question_count = 0 %>
+        <% @counts_of_questions.each do |cq| %>
+            <% if cq["id"] == t.id.to_s %>
+                <% @current_question_count = cq["count"] %>
+            <% end %>
+        <% end %>
+
+        <h3><%= link_to t.topic_name, [@login_user, t] %> (Otázok: <%= @current_question_count %>)</h3>
         <%= link_to "Edituj tému", edit_user_topic_url(@login_user, t) %>
         <%= link_to "Vymaž tému", [@login_user, t], method: :delete, data: { confirm: 'Ste si istý, že chcete vymazať tému a všetky prislúchajúce otázky?' }  %>
     <% end %>

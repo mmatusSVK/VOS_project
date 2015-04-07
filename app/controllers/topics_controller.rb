@@ -9,15 +9,13 @@ class TopicsController < ApplicationController
   end
 
   def index
-    #@topic = current_user.topics
     @topic = Topic.find_by_sql("SELECT t.id, t.topic_name, t.user_id, t.information, t.created_at FROM topics t JOIN users ON users.id = t.user_id WHERE users.id = #{@login_user.id}") #TODO otazka
+    @counts_of_questions = find_all_question_counts
   end
 
   def show
     @topic = Topic.find_by_sql("SELECT * FROM topics WHERE topics.id = #{params[:id]}").first
     redirect_to user_topic_questions_path(@login_user, @topic)
-#    @question = Question.find_by_sql("SELECT q.id,q.question_name FROM questions q JOIN topics ON q.topic_id = topics.id WHERE q.topic_id = #{params[:id]}")
-#    @count_of_question = select_count_of_questions(params[:id]).first["count"]
   end
 
   def edit
