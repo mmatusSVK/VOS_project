@@ -1,4 +1,4 @@
 class Test < ActiveRecord::Base
   belongs_to :user
-  has_many :current_tests, dependant: :destroy
+  has_many :current_tests, dependent: :destroy
 end

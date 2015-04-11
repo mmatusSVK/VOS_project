@@ -1,7 +1,7 @@
 class Topic < ActiveRecord::Base
   belongs_to :user
   has_many :questions, dependent: :destroy
-  has_many :current_tests, dependant: :destroy
+  has_many :current_tests, dependent: :destroy
 
   default_scope -> { order(created_at: :desc) }
 

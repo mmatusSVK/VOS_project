@@ -5,6 +5,11 @@
 
   <div class="col-md-9 my_content">
     <h3><strong>Témy</strong></h3>
+
+    <% if @topic.count == 0 %>
+        <p>Zoznam tém je prázdny. <%= link_to "Pridať", new_user_topic_path(@login_user) %> tému?</p>
+    <% end %>
+
     <% @topic.each do |t| %>
 
         <% @current_question_count = 0 %>

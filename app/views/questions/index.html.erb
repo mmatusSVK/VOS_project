@@ -8,6 +8,10 @@
     <p><strong>Popis:</strong> <%= @select_topic.information %></p>
     <p>Počet otázok: <%= @count_of_question %></p>
 
+    <% if @question.count == 0 %>
+        <p>Zoznam otázok je prázdny. <%= link_to "Pridať", new_user_topic_question_path(@login_user, @select_topic) %> otázku?</p>
+    <% end %>
+
     <% @question.each do |q| %>
         <h3><%= link_to q.question_name, [@login_user, @select_topic, q] %></h3>
         <%= link_to "Edituj otázku", edit_user_topic_question_path(@login_user, @select_topic, q) %>
