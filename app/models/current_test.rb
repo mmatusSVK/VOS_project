@@ -1,4 +1,4 @@
 class CurrentTest < ActiveRecord::Base
-  belongs_to :test
-  belongs_to :topic
+#  belongs_to :test
+#  belongs_to :topic
 end

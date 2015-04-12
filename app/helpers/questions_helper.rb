@@ -18,9 +18,16 @@ module QuestionsHelper
   end
 
   def delete_in_database_question(id)
-    connection = ActiveRecord::Base.connection
-    query = "DELETE FROM questions WHERE questions.id = #{id}"
-    connection.execute(query)
+    ActiveRecord::Base.transaction do
+      query = "DELETE FROM answers WHERE answers.question_id = #{id}"
+      ActiveRecord::Base.connection.execute(query)
+
+      query = "DELETE FROM questions WHERE questions.id = #{id}"
+      ActiveRecord::Base.connection.execute(query)
+    end
+ #   connection = ActiveRecord::Base.connection
+ #   query = "DELETE FROM questions WHERE questions.id = #{id}"
+ #   connection.execute(query)
   end
 
   def current_question(index)

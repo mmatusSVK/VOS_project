@@ -19,9 +19,23 @@ module TopicsHelper
   end
 
   def delete_in_database_topic(id)
-    connection = ActiveRecord::Base.connection
-    query = "DELETE FROM topics WHERE topics.id = #{id}"
-    connection.execute(query)
+    ActiveRecord::Base.transaction do
+      questions = Question.find_by_sql("SELECT q.id, q.question_name, q.topic_id, q.created_at FROM questions q JOIN topics ON topics.id = q.topic_id WHERE topics.id = #{id}")
+      questions.each do |q|
+        query = "DELETE FROM answers WHERE answers.question_id = #{q.id}"
+        ActiveRecord::Base.connection.execute(query)
+      end
+
+      query = "DELETE FROM questions WHERE questions.topic_id = #{id}"
+      ActiveRecord::Base.connection.execute(query)
+
+      query = "DELETE FROM topics WHERE topics.id = #{id}"
+      ActiveRecord::Base.connection.execute(query)
+    end
+
+#    connection = ActiveRecord::Base.connection
+#    query = "DELETE FROM topics WHERE topics.id = #{id}"
+#    connection.execute(query)
   end
 
   def select_count_of_questions(index_of_topic)
