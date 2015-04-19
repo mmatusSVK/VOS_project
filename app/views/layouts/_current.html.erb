@@ -1,0 +1,9 @@
+<%= fields_for "test[current_test_attributes][]", @current_test do |u| %>
+  <li>
+    <%= u.label :topic_id, text="Názov témy" %>
+    <%= u.collection_select :topic_id, @user_topics, :id, :topic_name, class: 'form-control' %>
+
+    <%= u.label :questions_count, text="Počet otázok" %>
+    <%= u.number_field :questions_count, class: 'new_elements'%>
+  </li>
+<% end %>

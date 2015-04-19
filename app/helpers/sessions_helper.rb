@@ -24,6 +24,6 @@ module SessionsHelper
   private
 
   def find_by_session_id(id)
-    user = User.find(id)
+    user = User.find_by(id: id)
   end
 end

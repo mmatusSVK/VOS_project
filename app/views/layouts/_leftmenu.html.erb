@@ -19,15 +19,7 @@
     <% end %>
 
     <% if !@current_question.nil? %>
-    <a href="" class="new_section dropdown-toggle" data-toggle="dropdown">Otázka ...<b class="caret"></b></a>
-
-
-      <!--   <ul class="dropdown-menu">
-        <li><%= link_to @current_question.question_name, '' %></li>
-      </ul> -->
-
-     <!-- TODO -->
-
+      <a href="" title="<%= @current_question.question_name %>" class="new_section dropdown-toggle" data-toggle="dropdown">Otázka ...<b class="caret"></b></a>
       <ul>
         <li><%= link_to 'Zoznam opovedí', user_topic_question_answers_path(@login_user, @current_topic, @current_question) %></li>
         <li><%= link_to 'Nová odpoveď', new_user_topic_question_answer_path(@login_user, @current_topic, @current_question) %></li>
@@ -37,4 +29,11 @@
     <% end %>
 
   </ul>
+
+  <a href="" class="new_section">Nastavenia testov<b class="caret"></b></a>
+  <ul>
+    <li><%= link_to 'Nový test', new_user_test_path(@current_user) %></li>
+    <li><%= link_to 'Staré testy', '#' %></li>
+  </ul>
+
 </section>
