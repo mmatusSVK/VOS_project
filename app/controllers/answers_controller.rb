@@ -1,22 +1,24 @@
 class AnswersController < ApplicationController
   before_action :set_all_currents;
+#TODO  before_action :is_user_logged
+#  before_action :am_i_right_user
 
   before_filter :get_user, :get_topic, :get_question
 
   def get_user
-    @login_user = find_by_index_user(params[:user_id])
+    @login_user = User.find(params[:user_id])
   end
 
   def get_topic
-    @select_topic = find_by_index_topic(params[:topic_id])
+    @select_topic = Topic.find(params[:topic_id])
   end
 
   def get_question
-    @select_question = find_by_index_question(params[:question_id])
+    @select_question = Question.find(params[:question_id])
   end
 
   def index
-    @answers = Answer.find_by_sql("SELECT a.answer_name, a.is_right, a.question_id, a.id, a.created_at FROM answers a JOIN questions ON questions.id = a.question_id WHERE questions.id = #{@select_question.id}")
+    @answers = @select_question.answers
   end
 
   def new
@@ -24,7 +26,8 @@ class AnswersController < ApplicationController
   end
 
   def create
-    if add_to_database_answer(@select_question.id, answer_params) #@answer.save
+    @answer = @select_question.answers.build(answer_params)
+    if @answer.save
       flash[:success] = "Odpoveď úspešne pridaná"
       redirect_to user_topic_question_answers_path(@login_user, @select_topic, @select_question)
     else
@@ -34,11 +37,12 @@ class AnswersController < ApplicationController
   end
 
   def edit
-    @answer = find_by_index_answer(params[:id])
+    @answer = Answer.find(params[:id])
   end
 
   def update
-    if update_in_database_answer(answer_id_from_params, answer_params) #@answer.update_attributes(topic_params)
+    @answer = Answer.find(params[:id])
+    if @answer.update_attributes(answer_params)
       flash[:success] = "Odpoveď upravená"
       redirect_to user_topic_question_answers_path(@login_user, @current_topic, @select_question)
     else
@@ -47,7 +51,8 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    if delete_in_database_answer(answer_id_from_params) #@answer.destroy
+    @answer = Answer.find(params[:id])
+    if @answer.destroy
       flash[:success] = "Odpoveď odstránená"
       redirect_to user_topic_question_answers_path(@login_user, @select_topic, @select_question)
     end

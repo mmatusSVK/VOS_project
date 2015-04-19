@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = find_by_name(params[:session][:login_name])
+    user = User.find_by(login_name: params[:session][:login_name])
     if user && user.authenticate(params[:session][:password])
       log_in_new_user user
       flash[:success] = 'Prihlásenie prebehlo úspešne.'
@@ -19,12 +19,6 @@ class SessionsController < ApplicationController
   def destroy
     log_out_current_user
     redirect_to root_url
-  end
-
-  private
-
-  def find_by_name(name)
-    User.find_by_sql("SELECT * FROM users WHERE login_name=\'#{name}\'").first
   end
 
 end
