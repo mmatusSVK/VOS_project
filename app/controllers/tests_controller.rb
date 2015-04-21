@@ -10,6 +10,8 @@ class TestsController < ApplicationController
 
   def show
     @test = Test.find(params[:id])
+    @current_tests = @test.current_tests
+    @topic_in_test = nil
   end
 
   def index
@@ -46,6 +48,8 @@ class TestsController < ApplicationController
   end
 
   def update
+    params[:test][:starting_date] = DateTime.now
+
     @test = Test.find(params[:id])
     @new_current_tests = params[:test][:current_test_attributes]
     if @test.update_attributes(test_params)
@@ -66,6 +70,6 @@ class TestsController < ApplicationController
   private
 
   def test_params
-    params.require(:test).permit(:test_name)
+    params.require(:test).permit(:test_name, :duration, :starting_date)
   end
 end

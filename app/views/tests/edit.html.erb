@@ -13,6 +13,11 @@
           <%= t.label :test_name, text="Názov testu"  %>
           <%= t.text_field :test_name, class: 'form-control' %>
 
+          <%= t.label :duration, text="Trvanie testu"  %>
+          <%= t.time_select :duration, class: 'form-control' %>
+
+          <%= t.hidden_field :starting_date %>
+
           <ul class="dynamic_content">
             <% @current_tests.each do |ct| %>
                 <% @current_test.topic_id = ct.topic_id %>

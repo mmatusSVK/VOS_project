@@ -1,0 +1,18 @@
+<% provide(:title, 'Náhľad do testu') %>
+
+<div class="row">
+
+  <div class="col-md-9 my_content show_q">
+    <h3><strong>Test <%= @test.test_name %></strong></h3>
+
+    <% @current_tests.each do |ct| %>
+        <% @topic_in_test = Topic.find(ct.topic_id) %>
+        <p>Téma: <strong><%= @topic_in_test.topic_name %></strong>, počet otázok:
+        <strong><%= ct.questions_count %></strong></p>
+    <% end %>
+
+    <%= link_to "Edituj test", edit_user_test_path(@login_user, @test) %>,
+    <%= link_to "Vymaž test", [@login_user, @test], method: :delete, data: { confirm: 'Ste si istý, že chcete vymazať test?' }  %>
+  </div>
+
+</div>
