@@ -1,0 +1,23 @@
+<% provide(:title, 'Testovanie') %>
+
+<div class="row">
+  <div class="col-md-9 my_content anchor_line">
+
+    <h3><strong>Testovanie</strong></h3>
+
+    <div class="col-md-6 col-md-offset-3">
+        <%= form_tag :action => 'results', method: :post do %>
+
+          <% @current_tests.each do |ct| %>
+              <% @topic = Topic.find(ct.topic_id) %>
+              <% @questions = choose_random_questions(@topic.id, ct.questions_count) %>
+              <%= render 'layouts/questions' %>
+          <% end %>
+
+            <%= submit_tag 'Odoslať riešenie', class: "btn btn-primary"  %>
+        <% end %>
+
+    </div>
+  </div>
+</div>
+

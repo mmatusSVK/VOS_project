@@ -3,13 +3,14 @@
 
 <div class="row">
 
-  <div class="col-md-9 my_content">
+  <div class="col-md-9 my_content anchor_line">
     <h3><strong>Testy</strong></h3>
     <% @tests.each  do |t|%>
-        <h3><%= t.test_name %></h3>
+        <h3 class="marg_top"><%= t.test_name %></h3>
         <h2><%= link_to "Náhľad do obsahu testu", user_test_path(@login_user, t) %>,
         <%= link_to "Edituj test", edit_user_test_path(@login_user, t) %>,
         <%= link_to "Vymaž test", [@login_user, t], method: :delete, data: { confirm: 'Ste si istý, že chcete vymazať test?' }  %></h2>
+        <h3 class="marg_bot"><%= link_to "Aktivuj test", user_test_active_test_path(@login_user, t) %></h3>
     <% end %>
   </div>
 </div>

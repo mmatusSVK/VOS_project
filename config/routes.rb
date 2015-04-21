@@ -2,8 +2,10 @@ Rails.application.routes.draw do
   root 'static_pages#rootPage'
 
   resources :users do
-    resources :tests
-    resources :current_tests
+    resources :tests do
+        get 'active_test'
+        post 'results'
+      end
     resources :topics do
       resources :questions do
         resources :answers
@@ -11,12 +13,8 @@ Rails.application.routes.draw do
     end
   end
 
-
- # get 'signup' => 'users#new'
-
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
-
 
 end

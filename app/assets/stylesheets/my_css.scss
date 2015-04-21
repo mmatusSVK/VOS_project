@@ -136,3 +136,19 @@ body p {
 }
 
 //end of forms for new test (current test div)
+
+// test index CSS
+
+.anchor_line .marg_top{
+  margin-top: 30px;
+}
+
+.anchor_line .marg_bot{
+    margin-bottom: 45px;
+}
+
+.anchor_line .marg_bot:last-of-type{
+  margin-bottom: 5px;
+}
+
+// end of test index CSS

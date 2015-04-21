@@ -7,5 +7,6 @@ class ApplicationController < ActionController::Base
   include TopicsHelper
   include QuestionsHelper
   include AnswersHelper
+  include TestsHelper
 
 end

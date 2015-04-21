@@ -75,6 +75,18 @@ class TestsController < ApplicationController
     end
   end
 
+  def active_test
+    @test = Test.find(params[:test_id])
+    @current_tests = @test.current_tests
+    @questions = nil
+    @topic = nil
+    @answers
+  end
+
+  def results
+
+  end
+
   private
 
   def test_params
