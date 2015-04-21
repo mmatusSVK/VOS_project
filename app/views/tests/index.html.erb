@@ -8,7 +8,8 @@
     <% @tests.each  do |t|%>
         <h3><%= t.test_name %></h3>
         <h2><%= link_to "Náhľad do obsahu testu", user_test_path(@login_user, t) %>,
-        <%= link_to "Edituj test", edit_user_test_path(@login_user, t) %></h2>
+        <%= link_to "Edituj test", edit_user_test_path(@login_user, t) %>,
+        <%= link_to "Vymaž test", [@login_user, t], method: :delete, data: { confirm: 'Ste si istý, že chcete vymazať test?' }  %></h2>
     <% end %>
   </div>
 </div>

@@ -67,6 +67,14 @@ class TestsController < ApplicationController
     end
   end
 
+  def destroy
+    @test = Test.find(params[:id])
+    if @test.destroy
+      flash[:success] = "Test odstránený"
+      redirect_to user_tests_path(@login_user)
+    end
+  end
+
   private
 
   def test_params
