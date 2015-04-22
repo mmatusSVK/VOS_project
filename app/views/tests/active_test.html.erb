@@ -9,9 +9,13 @@
         <%= form_tag :action => 'results', method: :post do %>
 
           <% @current_tests.each do |ct| %>
-              <% @topic = Topic.find(ct.topic_id) %>
+              <% @topic = find_topic(ct.topic_id) %>
               <% @questions = choose_random_questions(@topic.id, ct.questions_count) %>
-              <%= render 'layouts/questions' %>
+              <% @questions.each do |q| %>
+                  <% @answers = q.answers %>
+                  <h4><%= q.question_name %></h4>
+                  <%= render 'layouts/questions' %>
+              <% end %>
           <% end %>
 
             <%= submit_tag 'Odoslať riešenie', class: "btn btn-primary"  %>

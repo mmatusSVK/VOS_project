@@ -1,0 +1,8 @@
+<%= fields_for "params[user_answers][]", @topic do |u| %>
+
+    <% @answers.each do |a|%>
+        <%= u.text_field :topic_name %>
+        <!--%= u.check_box :student_answer, class:"checkbox" %-->
+    <% end %>
+
+<% end %>

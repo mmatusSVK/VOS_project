@@ -78,10 +78,14 @@ class TestsController < ApplicationController
   def active_test
     @test = Test.find(params[:test_id])
     @current_tests = @test.current_tests
-    @questions = nil
+    @current_tests.shuffle
+
     @topic = nil
-    @answers
+    @questions = nil
+    @answers = nil
   end
+
+
 
   def results
 
