@@ -80,15 +80,21 @@ class TestsController < ApplicationController
     @current_tests = @test.current_tests
     @current_tests.shuffle
 
+    @user_answer = UserAnswer.new
     @topic = nil
     @questions = nil
     @answers = nil
   end
 
-
-
   def results
+    @result = params[:data_from_test]
 
+    @user_id = DateTime.now.strftime('%s')
+    @result.each do |r|
+      r[:answer_value] = false if r[:answer_value].nil?
+      @user_answer = UserAnswer.new(student_id: @user_id, answer_value: r[:answer_value], test_id: r[:test_id], answer_id: r[:answer_id]).save
+    end
+    redirect_to user_tests_path(@login_user)
   end
 
   private

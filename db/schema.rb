@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20150422111407) do
   create_table "user_answers", force: :cascade do |t|
     t.integer  "test_id"
     t.integer  "answer_id"
+    t.integer  "student_id"
     t.boolean  "answer_value"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
