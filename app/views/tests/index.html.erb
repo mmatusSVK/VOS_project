@@ -1,4 +1,4 @@
-<% provide(:title, 'Témy') %>
+<% provide(:title, 'Testy') %>
 <% make_all_current_null %>
 
 <div class="row">
@@ -10,7 +10,11 @@
         <h2><%= link_to "Náhľad do obsahu testu", user_test_path(@login_user, t) %>,
         <%= link_to "Edituj test", edit_user_test_path(@login_user, t) %>,
         <%= link_to "Vymaž test", [@login_user, t], method: :delete, data: { confirm: 'Ste si istý, že chcete vymazať test?' }  %></h2>
-        <h3 class="marg_bot"><%= link_to "Aktivuj test", user_test_active_test_path(@login_user, t) %></h3>
+        <% if check_duration(t) %>
+            <h3 class="marg_bot">Link: <%= link_to user_test_active_test_url(@login_user, t), "" %></h3>
+        <% else %>
+            <h3 class="marg_bot"><%= link_to "Aktivuj test", user_test_make_test_active_path(@login_user, t)%></h3>
+        <% end %>
     <% end %>
   </div>
 </div>

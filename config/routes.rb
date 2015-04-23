@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :tests do
         get 'active_test'
         post 'results'
+        get 'make_test_active'
       end
     resources :topics do
       resources :questions do

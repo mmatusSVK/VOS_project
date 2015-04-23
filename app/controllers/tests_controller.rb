@@ -1,7 +1,6 @@
 class TestsController < ApplicationController
   #TODO  before_action :is_user_logged
   #  before_action :am_i_right_user
-
   before_filter :get_user
 
   def get_user
@@ -48,8 +47,6 @@ class TestsController < ApplicationController
   end
 
   def update
-    params[:test][:starting_date] = DateTime.now
-
     @test = Test.find(params[:id])
     @new_current_tests = params[:test][:current_test_attributes]
     if @test.update_attributes(test_params)
@@ -77,6 +74,10 @@ class TestsController < ApplicationController
 
   def active_test
     @test = Test.find(params[:test_id])
+    unless check_duration(@test)
+      flash[:danger] = "Čas vypršal!"
+      redirect_to root_path
+    end
     @current_tests = @test.current_tests
     @current_tests.shuffle
 
@@ -84,6 +85,13 @@ class TestsController < ApplicationController
     @topic = nil
     @questions = nil
     @answers = nil
+  end
+
+  def make_test_active
+    @test = Test.find(params[:test_id])
+    @test.update_attributes(starting_date: DateTime.now)
+
+    redirect_to user_tests_path(@login_user)
   end
 
   def results
@@ -94,7 +102,7 @@ class TestsController < ApplicationController
       r[:answer_value] = false if r[:answer_value].nil?
       @user_answer = UserAnswer.new(student_id: @user_id, answer_value: r[:answer_value], test_id: r[:test_id], answer_id: r[:answer_id]).save
     end
-    redirect_to user_tests_path(@login_user)
+    redirect_to root_path
   end
 
   private
@@ -102,4 +110,5 @@ class TestsController < ApplicationController
   def test_params
     params.require(:test).permit(:test_name, :duration, :starting_date)
   end
+
 end

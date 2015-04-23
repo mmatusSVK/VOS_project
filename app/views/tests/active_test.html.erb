@@ -1,6 +1,7 @@
 <% provide(:title, 'Testovanie') %>
+<% set_test_active %>
 
-<div class="row">
+<div class="row <%= "testing" if (is_test? && !logged_in?) %>">
   <div class="col-md-9 my_content anchor_line">
 
     <h3><strong>Testovanie</strong></h3>

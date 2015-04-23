@@ -20,6 +20,7 @@ module ApplicationHelper
   def make_all_current_null
     @current_topic = nil
     @current_question = nil
+
   end
 
   def make_current_question_null

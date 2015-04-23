@@ -6,4 +6,28 @@ module TestsHelper
   def find_topic(topic_id)
     Topic.find(topic_id)
   end
+
+  def unset_test_active
+    @test_active = false
+  end
+
+  def set_test_active
+    @test_active = true
+  end
+
+  def is_test?
+    @test_active
+  end
+
+  def check_duration(test)
+    duration = test[:duration].strftime("%H").to_i * 3600 + test[:duration].strftime("%M").to_i * 60
+    starting_date = test.starting_date
+    check_time = (DateTime.now.to_f - starting_date.to_f)
+    if(check_time < duration.to_f)
+      true
+    else
+      false
+    end
+  end
+
 end
