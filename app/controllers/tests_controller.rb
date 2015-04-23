@@ -66,7 +66,7 @@ class TestsController < ApplicationController
 
   def destroy
     @test = Test.find(params[:id])
-    if @test.destroy
+    if @test.update_attributes(is_hidden: true)
       flash[:success] = "Test odstránený"
       redirect_to user_tests_path(@login_user)
     end
@@ -103,6 +103,10 @@ class TestsController < ApplicationController
       @user_answer = UserAnswer.new(student_id: @user_id, answer_value: r[:answer_value], test_id: r[:test_id], answer_id: r[:answer_id]).save
     end
     redirect_to root_path
+  end
+
+  def analyzed_tests
+    @tests = @login_user.tests
   end
 
   private
