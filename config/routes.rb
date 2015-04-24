@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   root 'static_pages#rootPage'
 
   resources :users do
+    get 'analyzed_tests'
     resources :tests do
+        get 'concrete_test'
         get 'active_test'
         post 'results'
         get 'make_test_active'

@@ -34,7 +34,7 @@
   <ul>
     <li><%= link_to 'Nový test', new_user_test_path(@current_user) %></li>
     <li><%= link_to 'Všetky testy', user_tests_path(@current_user) %></li>
-    <li><%= link_to 'Odovzdané testy', '#' %></li>
+    <li><%= link_to 'Odovzdané testy', user_analyzed_tests_path(@current_user) %></li>
   </ul>
 
 </section>

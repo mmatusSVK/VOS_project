@@ -1,0 +1,19 @@
+<% provide(:title, 'Analyzované testy') %>
+<% make_all_current_null %>
+
+<div class="row">
+
+  <div class="col-md-9 my_content">
+
+    <!-- TODO treba porobit, aby som z tych hashov vytiahol setky done testy a potom v testoch nova routa na analyzu odpovedi -->
+    <% @one_test_data.each do |key, item| %>
+        <% test = item.test %>
+        <h3><%= link_to test.test_name, user_test_concrete_test_path(@login_user, test) %></h3>
+        <% hours = key.strftime("%k").to_i + 2 %>
+        <p><%= key.strftime("%Y %B %d, #{hours}:%M") %></p>
+    <% end %>
+
+  </div>
+
+</div>
+

@@ -96,17 +96,13 @@ class TestsController < ApplicationController
 
   def results
     @result = params[:data_from_test]
-
+    @starting_date = Test.find(params[:test_id]).starting_date
     @user_id = DateTime.now.strftime('%s')
     @result.each do |r|
       r[:answer_value] = false if r[:answer_value].nil?
-      @user_answer = UserAnswer.new(student_id: @user_id, answer_value: r[:answer_value], test_id: r[:test_id], answer_id: r[:answer_id]).save
+      @user_answer = UserAnswer.new(starting_date: @starting_date ,student_id: @user_id, answer_value: r[:answer_value], test_id: r[:test_id], answer_id: r[:answer_id]).save
     end
     redirect_to root_path
-  end
-
-  def analyzed_tests
-    @tests = @login_user.tests
   end
 
   private
