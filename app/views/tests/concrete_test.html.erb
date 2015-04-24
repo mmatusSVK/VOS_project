@@ -1,0 +1,20 @@
+<% provide(:title, 'Analýza testu') %>
+
+<div class="row">
+  <div class="col-md-9 my_content anchor_line">
+
+    <h3><strong>Analýza testu: <%= @test.test_name %></strong></h3>
+
+    <% @all_answers.each do |aa| %>
+        <p><% if @starting_date == aa[:starting_date].to_s%>
+            <%= aa.starting_date %></p>
+        <% end %>
+    <% end %>
+
+    <div class="col-md-6 col-md-offset-3">
+
+
+    </div>
+  </div>
+</div>
+

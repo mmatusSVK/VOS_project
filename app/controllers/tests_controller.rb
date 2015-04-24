@@ -95,14 +95,29 @@ class TestsController < ApplicationController
   end
 
   def results
+#TODO    unless check_duration(@test)
+#      flash[:danger] = "Test nebol vykonaný v požadovanom čase!"
+#      redirect_to root_path
+#    end
+
     @result = params[:data_from_test]
     @starting_date = Test.find(params[:test_id]).starting_date
     @user_id = DateTime.now.strftime('%s')
     @result.each do |r|
-      r[:answer_value] = false if r[:answer_value].nil?
+      #r[:answer_value] = false if r[:answer_value].nil?
+      r[:answer_value].nil? ? r[:answer_value] = false : r[:answer_value] = true
+      answer = Answer.find(r[:answer_id])
+      answer.is_right == r[:answer_value] ? r[:answer_value] = true : r[:answer_value] = false
       @user_answer = UserAnswer.new(starting_date: @starting_date ,student_id: @user_id, answer_value: r[:answer_value], test_id: r[:test_id], answer_id: r[:answer_id]).save
     end
     redirect_to root_path
+  end
+
+  def concrete_test
+    @test = Test.find(params[:test_id])
+    @starting_date = params[:starting_date]
+    @all_answers = UserAnswer.where(test_id: @test.id)
+
   end
 
   private
