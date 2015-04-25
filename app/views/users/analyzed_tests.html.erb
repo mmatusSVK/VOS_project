@@ -8,8 +8,10 @@
     <% @one_test_data.each do |key, item| %>
         <% test = item.test %>
         <h3><%= link_to test.test_name, user_test_concrete_test_path(@login_user, test, :starting_date => item.starting_date) %></h3>
-        <% hours = key.strftime("%k").to_i + 2 %>
-        <p><%= key.strftime("%Y %B %d, #{hours}:%M") %></p>
+
+        <% time = DateTime.parse(key) %>
+        <% hours = time.strftime("%k").to_i + 2 %>
+        <p><%= time.strftime("%Y %B %d, #{hours}:%M") %></p>
     <% end %>
 
   </div>

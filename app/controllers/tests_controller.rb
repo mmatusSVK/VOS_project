@@ -104,7 +104,6 @@ class TestsController < ApplicationController
     @starting_date = Test.find(params[:test_id]).starting_date
     @user_id = DateTime.now.strftime('%s')
     @result.each do |r|
-      #r[:answer_value] = false if r[:answer_value].nil?
       r[:answer_value].nil? ? r[:answer_value] = false : r[:answer_value] = true
       answer = Answer.find(r[:answer_id])
       answer.is_right == r[:answer_value] ? r[:answer_value] = true : r[:answer_value] = false
@@ -116,7 +115,7 @@ class TestsController < ApplicationController
   def concrete_test
     @test = Test.find(params[:test_id])
     @starting_date = params[:starting_date]
-    @all_answers = UserAnswer.where(test_id: @test.id)
+    @all_answers = UserAnswer.where(test_id: @test.id, starting_date: @starting_date)
 
   end
 

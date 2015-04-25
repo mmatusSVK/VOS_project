@@ -6,10 +6,12 @@
     <h3><strong>Analýza testu: <%= @test.test_name %></strong></h3>
 
     <% @all_answers.each do |aa| %>
-        <p><% if @starting_date == aa[:starting_date].to_s%>
-            <%= aa.starting_date %></p>
-        <% end %>
+        <% if aa.starting_date.to_s == @starting_date %>
+            <%= aa.starting_date %>
+        <%  end %>
     <% end %>
+
+    <%= pie_chart @all_answers.group(:student_id).count(:id) %>
 
     <div class="col-md-6 col-md-offset-3">
 
