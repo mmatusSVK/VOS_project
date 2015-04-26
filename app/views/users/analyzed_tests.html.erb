@@ -11,7 +11,7 @@
 
         <% time = DateTime.parse(key) %>
         <% hours = time.strftime("%k").to_i + 2 %>
-        <p><%= time.strftime("%Y %B %d, #{hours}:%M") %></p>
+        <p><%= time.strftime("%Y %B %d, #{hours}:%M:%S") %></p>
     <% end %>
 
   </div>

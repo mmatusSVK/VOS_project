@@ -117,6 +117,45 @@ class TestsController < ApplicationController
     @starting_date = params[:starting_date]
     @all_answers = UserAnswer.where(test_id: @test.id, starting_date: @starting_date)
 
+    @all_questions = []
+    @all_topics = []
+    @all_topics_answers = {}
+    @all_questions_answers = {}
+
+    @all_answers.each do |aa|
+      answer = Answer.find(aa.answer_id)
+      @all_questions << answer.question_id
+    end
+    @all_questions = Question.where(id: @all_questions)
+
+    @all_questions.each do |val|
+      @all_topics << val.topic_id
+    end
+    @all_topics = Topic.where(id: @all_topics)
+
+    @all_topics.each do |at|
+      at.questions.each do |at_question|
+        at_question.answers.each do |at_answer|
+          at_answer.user_answers.each do |at_user_answer|
+            if at_user_answer.starting_date == @starting_date
+              @all_questions_answers[at_question.id].nil? ? @all_questions_answers[at_question.id] = [] : true
+              @all_questions_answers[at_question.id] << at_user_answer.id
+
+              @all_topics_answers[at.id].nil? ? @all_topics_answers[at.id] = [] : true
+              @all_topics_answers[at.id] << at_user_answer.id
+            end
+          end
+        end
+      end
+    end
+
+    @all_topics_answers.each do |key, val|
+      @all_topics_answers[key] = UserAnswer.where(id: val)
+    end
+    @all_questions_answers.each do |key, val|
+      @all_questions_answers[key] = UserAnswer.where(id: val)
+    end
+
   end
 
   private
