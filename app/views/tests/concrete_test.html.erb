@@ -35,6 +35,7 @@
           %>
           <% @all_topics.each do |topic| %>
               <%
+               next if @all_topics_answers[topic.id].nil?
                array = []
                array << topic.topic_name
                array << @all_topics_answers[topic.id].where(answer_value: values).count
@@ -45,7 +46,7 @@
       <% end %>
       <%= column_chart data%>
     </div>
-
+    <% debugger %>
     <% @all_topics.each do |at| %>
         <div class="col-xs-6">
           <h3>Téma: <%= at.topic_name %> (Pomer počtu dobrých a zlých odpovedí)</h3>
@@ -62,6 +63,7 @@
               %>
               <% at.questions.each do |question| %>
                   <%
+                     next if @all_questions_answers[question.id].nil?
                      array = []
                      array << question.question_name
                      array << @all_questions_answers[question.id].where(answer_value: values).count

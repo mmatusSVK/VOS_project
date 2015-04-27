@@ -42,13 +42,16 @@ class TestsController < ApplicationController
   def edit
     @test = Test.find(params[:id])
     @current_test = CurrentTest.new
-
     @user_topics = @login_user.topics
     @current_tests = @test.current_tests
   end
 
   def update
     @test = Test.find(params[:id])
+    @current_test = CurrentTest.new
+    @user_topics = @login_user.topics
+    @current_tests = @test.current_tests
+
     @new_current_tests = params[:test][:current_test_attributes]
     if @test.update_attributes(test_params)
       flash[:success] = "Test upravený"
@@ -58,10 +61,10 @@ class TestsController < ApplicationController
       @new_current_tests.each do |test|
         @test.current_tests.build(topic_id: test[:topic_id], questions_count: test[:questions_count]).save
       end
-
       redirect_to user_tests_path(@login_user)
     else
       render 'edit'
+      debugger
     end
   end
 
@@ -100,7 +103,6 @@ class TestsController < ApplicationController
 #      flash[:danger] = "Test nebol vykonaný v požadovanom čase!"
 #      redirect_to root_path
 #    end
-
     @result = params[:data_from_test]
     @starting_date = Test.find(params[:test_id]).starting_date
     @user_id = DateTime.now.strftime('%s')

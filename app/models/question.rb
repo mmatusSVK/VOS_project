@@ -3,5 +3,7 @@ class Question < ActiveRecord::Base
   has_many :answers ,dependent: :destroy
 
   default_scope -> { order(created_at: :desc) }
-  #TODO question validation
+
+  validates(:topic_id, presence: true)
+  validates(:question_name, presence: true, length: {minimum:3})
 end
