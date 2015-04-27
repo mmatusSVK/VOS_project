@@ -33,17 +33,17 @@ module TopicsHelper
 #    end
 #  end
 
-  def select_count_of_questions(index_of_topic)
-    connection = ActiveRecord::Base.connection
-    query = "SELECT COUNT(*) as count FROM questions q JOIN topics t ON t.id = q.topic_id WHERE t.id = #{index_of_topic  }"
-    connection.execute(query)
-  end
+#  def select_count_of_questions(index_of_topic)
+#    connection = ActiveRecord::Base.connection
+#    query = "SELECT COUNT(*) as count FROM questions q JOIN topics t ON t.id = q.topic_id WHERE t.id = #{index_of_topic  }"
+#    connection.execute(query)
+#  end
 
-  def find_all_question_counts
-    connection = ActiveRecord::Base.connection
-    query = "SELECT COUNT(*) as count, t.id FROM topics t JOIN questions q ON t.id = q.topic_id GROUP BY t.id"
-    connection.execute(query)
-  end
+#  def find_all_question_counts
+#    connection = ActiveRecord::Base.connection
+#    query = "SELECT COUNT(*) as count, t.id FROM topics t JOIN questions q ON t.id = q.topic_id GROUP BY t.id"
+#    connection.execute(query)
+#  end
 
   def current_topic(index)
     @current_topic ||= Topic.find(index)

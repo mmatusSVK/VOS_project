@@ -5,20 +5,81 @@
 
     <h3><strong>Analýza testu: <%= @test.test_name %></strong></h3>
 
-    <!-- TODO  Dat do riti prec-->
+    <div class="col-xs-6">
+      <h3>Pomer dobrých a zlých odpovedí celkovo</h3>
+      <%= pie_chart @all_answers.group(:answer_value).count(:answer_id) %>
+    </div>
 
     <div class="col-xs-6">
-        <h3>Pomer dobrých a zlých odpovedí celkovo</h3>
-        <%= pie_chart @all_answers.group(:answer_value).count(:answer_id) %>
+      <h3>Porovnanie odpovedí na jednotlivé témy</h3>
+      <!--% @all_topics.each do |topic| %-->
+          <!--% item = {}
+             item[:name] = topic.topic_name
+             item[:data] = []
+             array = []
+             array << "true"
+             array << @all_topics_answers[topic.id].where(answer_value: true).count
+             item[:data] << array
+             array = []
+             array << "false"
+             array << @all_topics_answers[topic.id].where(answer_value: false).count
+             item[:data] << array
+             data << item %-->
+      <!--% end %-->
+      <% data = [] %>
+      <% values = [true, false] %>
+      <% values.each do |values| %>
+          <% item = {}
+             item[:name] = values.to_s
+             item[:data] = []
+          %>
+          <% @all_topics.each do |topic| %>
+              <%
+               array = []
+               array << topic.topic_name
+               array << @all_topics_answers[topic.id].where(answer_value: values).count
+               item[:data] << array
+              %>
+          <% end %>
+          <% data << item %>
+      <% end %>
+      <%= column_chart data%>
     </div>
 
     <% @all_topics.each do |at| %>
         <div class="col-xs-6">
-          <h3>Téma: <%= at.topic_name %></h3>
-
+          <h3>Téma: <%= at.topic_name %> (Pomer počtu dobrých a zlých odpovedí)</h3>
+          <%= pie_chart @all_topics_answers[at.id].group(:answer_value).count(:answer_id) %>
+        </div>
+        <div class="col-xs-6">
+          <h3>Pomer počtu dobrých a zlých odpovedí na jednotivé otázky</h3>
+          <% data = [] %>
+          <% values = [true, false] %>
+          <% values.each do |values| %>
+              <% item = {}
+                 item[:name] = values.to_s
+                 item[:data] = []
+              %>
+              <% at.questions.each do |question| %>
+                  <%
+                     array = []
+                     array << question.question_name
+                     array << @all_questions_answers[question.id].where(answer_value: values).count
+                     item[:data] << array
+                  %>
+              <% end %>
+              <% data << item %>
+          <% end %>
+          <%= column_chart data%>
         </div>
     <% end %>
 
+    <% @all_questions.each do |aq| %>
+        <div class="col-xs-6">
+          <h3>Otázka : <%= aq.question_name %> (Pomer počtu dobrých a zlých odpovedí)</h3>
+          <%= pie_chart @all_questions_answers[aq.id].group(:answer_value).count(:answer_id) %>
+        </div>
+    <% end %>
 
   </div>
 </div>

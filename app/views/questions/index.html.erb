@@ -6,7 +6,7 @@
   <div class="col-md-9 my_content">
     <h3><strong>Otázky na tému <%= @select_topic.topic_name %></strong></h3>
     <p><strong>Popis:</strong> <%= @select_topic.information %></p>
-    <p>Počet otázok: <%= @count_of_question %></p>
+    <p>Počet otázok: <%= @select_topic.questions.count %></p>
 
     <% if @question.count == 0 %>
         <p>Zoznam otázok je prázdny. <%= link_to "Pridať", new_user_topic_question_path(@login_user, @select_topic) %> otázku?</p>

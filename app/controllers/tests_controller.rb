@@ -3,6 +3,7 @@ class TestsController < ApplicationController
   #  before_action :am_i_right_user
   before_filter :get_user
 
+
   def get_user
     @login_user = User.find(params[:user_id])
   end
