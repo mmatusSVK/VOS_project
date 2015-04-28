@@ -15,7 +15,6 @@ class QuestionsController < ApplicationController
 
   def index
     @question = @select_topic.questions
-#    @count_of_question = select_count_of_questions(@select_topic.id).first["count"]
   end
 
   def show
@@ -47,7 +46,6 @@ class QuestionsController < ApplicationController
       flash[:success] = "Otázka úspešne pridaná"
       redirect_to user_topic_questions_path(@login_user, @select_topic)
     else
-      @question = []
       render 'new'
     end
   end

@@ -2,7 +2,7 @@
 <% set_test_active %>
 
 <div class="row <%= "testing" if (is_test? && !logged_in?) %>">
-  <div class="col-md-9 my_content anchor_line">
+  <div class="col-md-9 my_content anchor_line well">
 
     <h3><strong>Testovanie</strong></h3>
 
@@ -19,7 +19,7 @@
               <% end %>
           <% end %>
 
-            <%= submit_tag 'Odoslať riešenie', class: "btn btn-primary"  %>
+          <%= submit_tag 'Odoslať riešenie', class: "btn btn-primary"  %>
         <% end %>
 
     </div>

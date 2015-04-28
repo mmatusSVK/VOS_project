@@ -10,7 +10,6 @@ class TopicsController < ApplicationController
 
   def index
     @topic = @current_user.topics
-#    @counts_of_questions = find_all_question_counts
   end
 
   def show
@@ -50,7 +49,6 @@ class TopicsController < ApplicationController
       flash[:success] = "Téma úspešne pridaná"
       redirect_to user_topics_path(@login_user)
     else
-      @topic = []
       render 'new'
     end
   end

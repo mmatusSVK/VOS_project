@@ -34,7 +34,8 @@ class TestsController < ApplicationController
       flash[:success] = "Test úspešne pridaný"
       redirect_to user_path(@login_user)
     else
-      @test = []
+      @current_test = CurrentTest.new
+      @user_topics = @login_user.topics
       render 'new'
     end
   end
@@ -64,7 +65,6 @@ class TestsController < ApplicationController
       redirect_to user_tests_path(@login_user)
     else
       render 'edit'
-      debugger
     end
   end
 

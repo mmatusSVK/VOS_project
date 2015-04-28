@@ -8,8 +8,6 @@ class Test < ActiveRecord::Base
 
   default_scope -> { order(created_at: :desc) }
 
-  accepts_nested_attributes_for :current_tests
-
   validates(:user_id, presence: true)
   validates(:test_name, presence: true, length: {minimum: 5})
   validate :is_min_duration

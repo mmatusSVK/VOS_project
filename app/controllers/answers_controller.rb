@@ -31,7 +31,6 @@ class AnswersController < ApplicationController
       flash[:success] = "Odpoveď úspešne pridaná"
       redirect_to user_topic_question_answers_path(@login_user, @select_topic, @select_question)
     else
-      @answer = []
       render 'new'
     end
   end

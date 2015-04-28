@@ -3,6 +3,17 @@
 
 //vseobecne CSS
 
+.bcimage{
+    background-image: url(bc.JPG);
+}
+
+body {
+
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: #E5ECFF;
+}
+
 body h1, h2, h3, h4, h5, h6 {
   line-height: 1;
 }
@@ -30,18 +41,18 @@ body p {
 //koniec vseobecneho CSS
 
 //left Menu CSS
-
+/*
 .left_menu {
   a {
-    font-size: 18px;
-    margin: 15px auto auto auto;
+    font-size: 15px;
+    margin: auto auto auto auto;
   }
   li a {
     font-size: 15px;
     margin: 0 0 0 0;
   }
 }
-
+*/
 //end of left Menu css
 
 //rootPage css
@@ -78,20 +89,25 @@ body p {
 
 //header CSS
 
- header{
-   margin: 10px 10px 20px 10px;
-   border-radius: 10px 10px 10px 10px;
-   background-color: #666666;
+header{
+   margin-bottom: 20px;
 }
+
+ .container.marg-top{
+   margin-top: 60px;
+ }
+
 
 //end of header CSS
 
 //teacher content
 
+/*
 .my_content {
   border: 1px solid black;
   border-radius: 10px 10px 10px 10px;
-}
+}*/
+
 
 .col-md-2{
   margin-right: 10px;
