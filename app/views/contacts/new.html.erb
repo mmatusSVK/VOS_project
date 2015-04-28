@@ -1,0 +1,24 @@
+<% provide(:title, 'Kontakt') %>
+<% provide(:isRoot, 'true') %>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3 well">
+
+    <h3><strong>Kontaktný formulár</strong></h3>
+    <p>V prípade vyžiadania dodatočných informácií ohľadom používania alebo záujmu o produkt, napíšte svoje požiadavky a
+    otázky do časti "Obsah správy".</p>
+
+      <%= form_for @message, :url => contacts_url  do |t| %>
+          <%= render 'shared/error_messages', object: t.object %>
+
+          <%= t.label :email, text="Email"  %>
+          <%= t.text_field :email, class: 'form-control' %>
+
+          <%= t.label :body, text="Obsah správy"  %>
+          <%= t.text_area :body, class: 'form-control' %>
+
+          <%= submit_tag 'Kontaktovať', class: "btn btn-primary"  %>
+      <% end %>
+
+  </div>
+</div>

@@ -1,10 +1,9 @@
 <% provide(:isRoot, 'true') %>
 <% provide(:title, 'Login') %>
 
-<h1>Prihlásenie</h1>
-
 <div class="row">
   <div class="col-md-6 col-md-offset-3 well">
+    <h1>Prihlásenie</h1>
     <%= form_for(:session, url: login_path) do |f| %>
 
         <%= f.label :login_name, text="Prihlasovacie meno"  %>
@@ -16,6 +15,6 @@
         <%= f.submit "Prihlásiť sa", class: "btn btn-primary" %>
     <% end %>
 
-    <p>Ako sa zaregistrovať?<%= link_to "#TODO", '' %></p>
+    <p><%= link_to "Ako sa zaregistrovať?", contacts_path %></p>
   </div>
 </div>
