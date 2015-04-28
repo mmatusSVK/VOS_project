@@ -11,7 +11,7 @@ class TestsController < ApplicationController
   def show
     @test = Test.find(params[:id])
     @current_tests = @test.current_tests
-    @topic_in_test = nil
+    @topic_in_test = @test.topics
   end
 
   def index
@@ -99,10 +99,11 @@ class TestsController < ApplicationController
   end
 
   def results
-#TODO    unless check_duration(@test)
-#      flash[:danger] = "Test nebol vykonaný v požadovanom čase!"
-#      redirect_to root_path
-#    end
+    @test = Test.find(params[:test_id])
+    unless check_duration(@test)
+      flash[:danger] = "Test nebol vykonaný v požadovanom čase!"
+      redirect_to root_path and return
+    end
     @result = params[:data_from_test]
     @starting_date = Test.find(params[:test_id]).starting_date
     @user_id = DateTime.now.strftime('%s')

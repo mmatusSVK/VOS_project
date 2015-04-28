@@ -6,8 +6,7 @@
     <h3><strong>Test <%= @test.test_name %></strong></h3>
 
     <% @current_tests.each do |ct| %>
-        <% @topic_in_test = Topic.find(ct.topic_id) %>
-        <p>Téma: <strong><%= @topic_in_test.topic_name %></strong>, počet otázok:
+        <p>Téma: <strong><%= @topic_in_test.find(ct.topic_id).topic_name %></strong>, počet otázok:
         <strong><%= ct.questions_count %></strong></p>
     <% end %>
 
