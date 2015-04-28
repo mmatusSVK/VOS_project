@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
+
   root 'static_pages#rootPage'
+
+  match '/contacts',     to: 'contacts#new',             via: 'get'
+  resources "contacts", only: [:new, :create]
 
   resources :users do
     get 'analyzed_tests'

@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'mail_form'
+gem 'simple_form'
 gem 'rails', '4.2.0'
 gem 'bcrypt',               '3.1.7'
 gem 'bootstrap-sass',       '3.2.0.0'
