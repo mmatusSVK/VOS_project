@@ -3,11 +3,12 @@ Rails.application.configure do
   # Code is not reloaded between requests.
 
   config.cache_classes = true
+  config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
       address:              'smtp.gmail.com',
       port:                 587,
-      domain:               'i-lectures.herokuapp.com',
+      domain:               'gmail.com',
       user_name:            'web.ilectures@gmail.com',
       password:             'kebab123',
       authentication:       'plain',
