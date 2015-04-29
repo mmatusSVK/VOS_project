@@ -9,10 +9,8 @@
 </head>
 
 
-<body class = <%= "bcimage" if root_page?(yield(:isRoot))%> >
+<body class = <%= "bcimage" if root_page?(yield(:isRoot)) || is_test?%> >
     <%= render 'layouts/header' if (logged_in?) %>
-
-    <%= render 'layouts/testing_header' if (is_test? && !logged_in?) %>
 
     <%= render 'layouts/leftmenu' if logged_in? && !root_page?(yield(:isRoot)) %>
     <div class="container marg-top">

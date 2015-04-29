@@ -1,6 +1,6 @@
 class TestsController < ApplicationController
-  before_action :is_user_logged
-  before_action :am_i_right_user
+  before_action :is_user_logged, except: [:active_test, :results]
+  before_action :am_i_right_user, except: [:active_test, :results]
 
   before_filter :get_user
 
@@ -26,7 +26,7 @@ class TestsController < ApplicationController
   end
 
   def create
-    @current_tests = params[:test][:current_test_attributes]
+    @current_tests = params[:test][:current_tests_attributes]
     @test = @login_user.tests.build(test_params)
     if @test.save
       @current_tests.each do |test|
@@ -54,7 +54,7 @@ class TestsController < ApplicationController
     @user_topics = @login_user.topics
     @current_tests = @test.current_tests
 
-    @new_current_tests = params[:test][:current_test_attributes]
+    @new_current_tests = params[:test][:current_tests_attributes]
     if @test.update_attributes(test_params)
       flash[:success] = "Test upravený"
       @test.current_tests.each do |ct|

@@ -4,6 +4,6 @@
     <%= u.collection_select :topic_id, @user_topics, :id, :topic_name, class: 'form-control' %>
 
     <%= u.label :questions_count, text="Počet otázok" %>
-    <%= u.number_field :questions_count, class: 'new_elements', min:1, value:1%>
+    <%= u.number_field :questions_count, class: 'new_elements', min:1%>
   </li>
 <% end %>
