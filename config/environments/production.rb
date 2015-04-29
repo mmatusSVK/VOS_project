@@ -5,6 +5,7 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
+<<<<<<< HEAD
       address:              'smtp.gmail.com',
       port:                 587,
       domain:               'i-lectures.herokuapp.com',
@@ -12,6 +13,15 @@ Rails.application.configure do
       password:             'kebab123',
       authentication:       'plain',
       enable_starttls_auto: true  }
+=======
+      :address              => "smtp.gmail.com",
+      :port                 => 587,
+      :user_name            => ENV['matus.salat'],
+      :password             => ENV['bulbasaur11'],
+      :authentication       => "plain",
+      :enable_starttls_auto => true
+  }
+>>>>>>> 2736a53af7d8f7e88a33196ff41aedde481e7a7b
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
   # and those relying on copy on write to perform better.
