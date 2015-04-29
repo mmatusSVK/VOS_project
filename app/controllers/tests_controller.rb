@@ -119,6 +119,8 @@ class TestsController < ApplicationController
   def concrete_test
     @test = Test.find(params[:test_id])
     @starting_date = params[:starting_date]
+    @show_q = params[:show_q]
+    @show_q == 'q' ? set_question_analyzation(true) : set_question_analyzation(false)
     @all_answers = UserAnswer.where(test_id: @test.id, starting_date: @starting_date)
 
     @all_questions = []
@@ -165,7 +167,7 @@ class TestsController < ApplicationController
   private
 
   def test_params
-    params.require(:test).permit(:test_name, :duration, :starting_date)
+    params.require(:test).permit(:test_name, :duration, :starting_date, :current_tests_attributes)
   end
 
 end

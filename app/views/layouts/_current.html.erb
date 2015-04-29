@@ -1,4 +1,4 @@
-<%= fields_for "test[current_test_attributes][]", @current_test do |u| %>
+<%= fields_for "test[current_tests_attributes][]", @current_test do |u| %>
   <li>
     <%= u.label :topic_id, text="Názov témy" %>
     <%= u.collection_select :topic_id, @user_topics, :id, :topic_name, class: 'form-control' %>

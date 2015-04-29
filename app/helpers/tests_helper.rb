@@ -19,6 +19,15 @@ module TestsHelper
     @test_active
   end
 
+  def set_question_analyzation(value)
+    @q_analyzation = value
+  end
+
+  def show_question_analyzation
+    @q_analyzation ||= false;
+    @q_analyzation
+  end
+
   def check_duration(test)
     duration = test[:duration].strftime("%H").to_i * 3600 + test[:duration].strftime("%M").to_i * 60
     starting_date = test.starting_date
