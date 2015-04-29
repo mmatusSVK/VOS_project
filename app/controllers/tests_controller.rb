@@ -1,6 +1,7 @@
 class TestsController < ApplicationController
-  #TODO  before_action :is_user_logged
-  #  before_action :am_i_right_user
+  before_action :is_user_logged
+  before_action :am_i_right_user
+
   before_filter :get_user
 
 
@@ -168,6 +169,18 @@ class TestsController < ApplicationController
 
   def test_params
     params.require(:test).permit(:test_name, :duration, :starting_date, :current_tests_attributes)
+  end
+
+  def is_user_logged
+    unless logged_in?
+      flash[:danger] = "Prosím prihláste sa."
+      redirect_to login_path
+    end
+  end
+
+  def am_i_right_user
+    @user = User.find(params[:user_id])
+    redirect_to(root_url) unless current_user?(@user)
   end
 
 end

@@ -1,7 +1,8 @@
 class QuestionsController < ApplicationController
-  before_action :set_current_topic
   before_action :is_user_logged
   before_action :am_i_right_user
+  before_action :am_i_right_topic
+  before_action :set_current_topic
 
   before_filter :get_user, :get_topic
 
@@ -80,7 +81,14 @@ class QuestionsController < ApplicationController
   end
 
   def am_i_right_user
-    #TODO dorobit kontrolu pri otazkach
+    @user = User.find(params[:user_id])
+    redirect_to(root_url) unless current_user?(@user)
+  end
+
+  def am_i_right_topic
+    @topic = Topic.find(params[:topic_id])
+    @user = User.find(@topic.user_id)
+    redirect_to(root_url) unless current_user?(@user)
   end
 
 end

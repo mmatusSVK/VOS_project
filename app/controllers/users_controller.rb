@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :is_user_logged, only: [:show ]
-  before_action :am_i_right_user,   only: [:show]
+  before_action :is_user_logged, only: [:show, :analyzed_test]
+  before_action :am_i_right_user,   only: [:show, :analyzed_tests]
 
   before_filter :set_user, only: :analyzed_tests
 
@@ -44,7 +44,7 @@ class UsersController < ApplicationController
   end
 
   def am_i_right_user
-    @user = User.find(params[:id])
+    params[:id].nil? ? @user = User.find(params[:user_id]) : @user = User.find(params[:id])
     redirect_to(root_url) unless current_user?(@user)
   end
 

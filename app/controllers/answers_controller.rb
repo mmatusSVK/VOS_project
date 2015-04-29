@@ -1,7 +1,9 @@
 class AnswersController < ApplicationController
-  before_action :set_all_currents;
-#TODO  before_action :is_user_logged
-#  before_action :am_i_right_user
+  before_action :is_user_logged
+  before_action :am_i_right_user
+  before_action :am_i_right_topic
+  before_action :am_i_right_question
+  before_action :set_all_currents
 
   before_filter :get_user, :get_topic, :get_question
 
@@ -70,5 +72,30 @@ class AnswersController < ApplicationController
   def set_all_currents
     current_topic(params[:topic_id])
     current_question(params[:question_id])
+  end
+
+  def is_user_logged
+    unless logged_in?
+      flash[:danger] = "Prosím prihláste sa."
+      redirect_to login_path
+    end
+  end
+
+  def am_i_right_user
+    @user = User.find(params[:user_id])
+    redirect_to(root_url) unless current_user?(@user)
+  end
+
+  def am_i_right_topic
+    @topic = Topic.find(params[:topic_id])
+    @user = User.find(@topic.user_id)
+    redirect_to(root_url) unless current_user?(@user)
+  end
+
+  def am_i_right_question
+    @question = Question.find(params[:question_id])
+    @topic = Topic.find(@question.topic_id)
+    @user = User.find(@topic.user_id)
+    redirect_to(root_url) unless current_user?(@user)
   end
 end

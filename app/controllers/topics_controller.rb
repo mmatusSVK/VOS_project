@@ -1,6 +1,6 @@
 class TopicsController < ApplicationController
-  before_action :is_user_logged,    only: [:show, :index, :new, :update]
-  before_action :am_i_right_user,   only: [:show, :index, :new, :update]
+  before_action :is_user_logged
+  before_action :am_i_right_user
 
   before_filter :get_user
 
