@@ -20,9 +20,9 @@
           <%= t.hidden_field :is_hidden, value: false %>
 
           <ul class="dynamic_content">
-            <% @current_tests.each do |ct| %>
-                <% @current_test.topic_id = ct.topic_id %>
-                <% @current_test.questions_count = ct.questions_count %>
+            <% @current_tests_all.each do |ct| %>
+                <% @current_tests.topic_id = ct.topic_id %>
+                <% @current_tests.questions_count = ct.questions_count %>
                 <%= render 'layouts/current' %>
             <% end %>
           </ul>

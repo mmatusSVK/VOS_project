@@ -7,7 +7,7 @@
 
     <% @one_test_data.each do |key, item| %>
         <% test = item.test %>
-        <h3><%= link_to test.test_name, user_test_concrete_test_path(@login_user, test, :starting_date => item.starting_date) %></h3>
+        <h3><%= link_to item.old_test_name, user_test_concrete_test_path(@login_user, test, :starting_date => item.starting_date) %></h3>
 
         <% time = DateTime.parse(key) %>
         <% hours = time.strftime("%k").to_i + 2 %>

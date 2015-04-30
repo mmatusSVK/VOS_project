@@ -49,16 +49,16 @@ class TestsController < ApplicationController
 
   def edit
     @test = Test.find(params[:id])
-    @current_test = CurrentTest.new
+    @current_tests = CurrentTest.new
     @user_topics = @login_user.topics
-    @current_tests = @test.current_tests
+    @current_tests_all = @test.current_tests
   end
 
   def update
     @test = Test.find(params[:id])
-    @current_test = CurrentTest.new
+    @current_tests = CurrentTest.new
     @user_topics = @login_user.topics
-    @current_tests = @test.current_tests
+    @current_tests_all = @test.current_tests
 
     @new_current_tests = params[:test][:current_tests_attributes]
     if @test.update_attributes(test_params)
@@ -124,13 +124,12 @@ class TestsController < ApplicationController
     @result = params[:data_from_test]
     @starting_date = Test.find(params[:test_id]).starting_date
     @user_id = DateTime.now.strftime('%s')
-    debugger
     @result.each do |r|
       r[:answer_value].nil? ? r[:answer_value] = false : r[:answer_value] = true
       answer = Answer.find(r[:answer_id])
       answer.is_right == r[:answer_value] ? r[:answer_value] = true : r[:answer_value] = false
-      @user_answer = UserAnswer.new(starting_date: @starting_date ,student_id: @user_id, answer_value: r[:answer_value],
-                                    test_id: r[:test_id], answer_id: r[:answer_id], question_id: r[:question_id], topic_id: r[:topic_id]).save
+      @user_answer = UserAnswer.new(starting_date: @starting_date ,student_id: @user_id, answer_value: r[:answer_value], old_test_name: @test.test_name,
+                                    test_id: r[:test_id], question_id: r[:question_id], topic_id: r[:topic_id]).save
     end
     redirect_to root_path
   end

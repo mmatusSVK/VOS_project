@@ -6,14 +6,16 @@
   <div class="col-md-9 my_content well">
     <h3><strong>Témy</strong></h3>
 
-    <% if @topic.count == 0 %>
-        <p>Zoznam tém je prázdny. <%= link_to "Pridať", new_user_topic_path(@login_user) %> tému?</p>
-    <% end %>
-
     <% @topic.each do |t| %>
         <h3><%= link_to t.topic_name, [@login_user, t] %> (Otázok: <%= t.questions.count %>)</h3>
         <%= link_to "Edituj tému", edit_user_topic_url(@login_user, t) %>
         <%= link_to "Vymaž tému", [@login_user, t], method: :delete, data: { confirm: 'Ste si istý, že chcete vymazať tému a všetky prislúchajúce otázky?' }  %>
+    <% end %>
+
+    <% if @topic.count == 0 %>
+        <p>Zoznam tém je prázdny. <%= link_to "Pridať", new_user_topic_path(@login_user) %> tému?</p>
+    <% else %>
+        <p><%= link_to "Pridať ďalšiu tému.", new_user_topic_path(@login_user) %></p>
     <% end %>
   </div>
 </div>

@@ -6,10 +6,6 @@
   <div class="col-md-9 my_content well">
     <h3><strong>Odpovede otázky: <%= @select_question.question_name %></strong></h3>
 
-    <% if @answers.count == 0 %>
-        <p>Zoznam odpovedí je prázdny. <%= link_to "Pridať", new_user_topic_question_answer_path(@login_user, @select_topic, @select_question) %> odpoveď?</p>
-    <% end %>
-
     <% @answers.each do |a| %>
         <% if a.is_right == false %>
             <% bool = 'nesprávna' %>
@@ -21,6 +17,11 @@
         <%= link_to "Vymaž odpoveď", [@login_user, @select_topic, @select_question, a], method: :delete, data: { confirm: 'Ste si istý, že chcete vymazať odpoveď?' }  %>
     <% end %>
 
+    <% if @answers.count == 0 %>
+        <p>Zoznam odpovedí je prázdny. <%= link_to "Pridať", new_user_topic_question_answer_path(@login_user, @select_topic, @select_question) %> odpoveď?</p>
+    <% else %>
+        <p><%= link_to "Pridať ďalšiu odpoveď.", new_user_topic_question_answer_path(@login_user, @select_topic, @select_question) %></p>
+    <% end %>
   </div>
 
 </div>

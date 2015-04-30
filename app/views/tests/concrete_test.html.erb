@@ -8,7 +8,7 @@
     <h1>-------- Súhrn dát --------</h1>
     <div class="col-md-12">
       <h3>Pomer dobrých a zlých odpovedí celkovo</h3>
-      <%= pie_chart @all_answers.group(:answer_value).count(:answer_id) %>
+      <%= pie_chart @all_answers.group(:answer_value).count(:id) %>
     </div>
     <div class="col-md-12">
       <h3>Porovnanie odpovedí na jednotlivé témy</h3>
@@ -37,7 +37,7 @@
     <% @all_topics.each do |at| %>
         <div class="col-md-12">
           <h3>Téma: <%= at.topic_name %> (Pomer počtu dobrých a zlých odpovedí)</h3>
-          <%= pie_chart @all_topics_answers[at.id].group(:answer_value).count(:answer_id) %>
+          <%= pie_chart @all_topics_answers[at.id].group(:answer_value).count(:id) %>
         </div>
     <% end %>
 
@@ -76,7 +76,7 @@
         <% @all_questions.each do |aq| %>
             <div class="col-md-12">
               <h3>Otázka : <%= aq.question_name %></h3>
-              <%= pie_chart @all_questions_answers[aq.id].group(:answer_value).count(:answer_id) %>
+              <%= pie_chart @all_questions_answers[aq.id].group(:answer_value).count(:id) %>
             </div>
         <% end %>
     <% end %>
