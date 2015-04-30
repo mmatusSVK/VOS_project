@@ -17,10 +17,12 @@
           <%= t.time_select :duration, class: 'form-control' %>
 
           <%= t.hidden_field :starting_date %>
+          <%= t.hidden_field :is_hidden, value: false %>
 
           <ul class="dynamic_content">
-            <%= render 'layouts/current' %>
+                <%= render 'layouts/current' %>
           </ul>
+
           <h2><%= link_to "Pridať ďalšiu tému", "#add", :id => "add-another" %>,
           <%= link_to("Odstrániť poslednú tému", "#delete", :class => "delete-current") %></h2>
           <%= t.submit "Vytvoriť test", class: "btn btn-primary" %>

@@ -15,7 +15,7 @@ class QuestionsController < ApplicationController
   end
 
   def index
-    @question = @select_topic.questions
+    @question = @select_topic.questions.where(is_hidden: false)
   end
 
   def show
@@ -53,7 +53,7 @@ class QuestionsController < ApplicationController
 
   def destroy
     @question = Question.find(params[:id])
-    if @question.destroy
+    if Answer.where(question_id: @question.id).update_all(is_hidden: true) && @question.update_attributes(is_hidden: true)
       flash[:success] = "Otázka odstránená"
       redirect_to user_topic_questions_path(@login_user, @select_topic)
     end
@@ -70,7 +70,7 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.require(:question).permit(:question_name)
+    params.require(:question).permit(:question_name, :is_hidden)
   end
 
   def is_user_logged
@@ -88,7 +88,7 @@ class QuestionsController < ApplicationController
   def am_i_right_topic
     @topic = Topic.find(params[:topic_id])
     @user = User.find(@topic.user_id)
-    redirect_to(root_url) unless current_user?(@user)
+    redirect_to(root_url) unless current_user?(@user) || @topic.is_hidden = true
   end
 
 end

@@ -15,6 +15,8 @@
           <%= t.label :question_name, text="Meno otázky" %>
           <%= t.text_area :question_name, class: 'form-control' %>
 
+          <%= t.hidden_field :is_hidden, value: false %>
+
           <%= t.submit "Upraviť otázku", class: "btn btn-primary" %>
       <% end %>
     </div>

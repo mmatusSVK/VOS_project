@@ -1,8 +1,10 @@
-<% @answers.each do |a|%>
+<% @answers[q.id].each do |a|%>
     <%= label_tag :answer_name , a.answer_name %>
     <%= fields_for "data_from_test[]", @user_answer do |u| %>
         <%= u.hidden_field :test_id, value: @test.id %>
         <%= u.hidden_field :answer_id, value: a.id %>
+        <%= u.hidden_field :question_id, value: q.id %>
+        <%= u.hidden_field :topic_id, value: ct.topic_id %>
 
         <%= u.check_box :answer_value, include_hidden: false , class:"checkbox" %>
     <% end %>

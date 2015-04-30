@@ -16,17 +16,19 @@
       <% end %>
 
       <% if !@current_question.nil? %>
-          <li class="nav-header">Otázka:<%= @current_question.question_name %></li>
+            <li class="nav-header">Otázka:<%= @current_question.question_name %></li>
             <li><%= link_to 'Zoznam opovedí', user_topic_question_answers_path(@login_user, @current_topic, @current_question) %></li>
             <li><%= link_to 'Nová odpoveď', new_user_topic_question_answer_path(@login_user, @current_topic, @current_question) %></li>
             <li><%= link_to 'Uprav otázku', edit_user_topic_question_path(@login_user, @current_topic, @current_question) %></li>
             <li><%= link_to 'Vymaž otázku', [@login_user, @current_topic, @current_question], method: :delete, data: { confirm: 'Ste si istý, že chcete vymazať otázku?' } %></li>
       <% end %>
 
-      <li class="nav-header">Nastavenia testov</li>
-      <li><%= link_to 'Nový test', new_user_test_path(@current_user) %></li>
-      <li><%= link_to 'Všetky testy', user_tests_path(@current_user) %></li>
-      <li><%= link_to 'Odovzdané testy', user_analyzed_tests_path(@current_user) %></li>
+      <% if @current_user.topics.count >= 1 %>
+            <li class="nav-header">Nastavenia testov</li>
+            <li><%= link_to 'Nový test', new_user_test_path(@current_user) %></li>
+            <li><%= link_to 'Všetky testy', user_tests_path(@current_user) %></li>
+            <li><%= link_to 'Odovzdané testy', user_analyzed_tests_path(@current_user) %></li>
+      <% end %>
     </ul>
     </div>
   </div>

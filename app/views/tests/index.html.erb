@@ -6,7 +6,6 @@
   <div class="col-md-9 my_content anchor_line well">
     <h3><strong>Testy</strong></h3>
     <% @tests.each  do |t|%>
-        <% next if t.is_hidden %>
         <h3 class="marg_top"><%= t.test_name %></h3>
         <h2><%= link_to "Náhľad do obsahu testu", user_test_path(@login_user, t) %>,
         <%= link_to "Edituj test", edit_user_test_path(@login_user, t) %>,

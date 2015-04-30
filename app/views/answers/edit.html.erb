@@ -17,6 +17,8 @@
           <%= a.label :is_right, text="Správna?" %>
           <%= a.check_box :is_right , class:"checkbox" %>
 
+          <%= a.hidden_field :is_hidden, value: false %>
+
           <%= a.submit "Upraviť otázku", class: "btn btn-primary" %>
       <% end %>
     </div>

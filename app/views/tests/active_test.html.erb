@@ -10,12 +10,9 @@
         <%= form_tag :action => 'results', method: :post do %>
 
           <% @current_tests.each do |ct| %>
-              <% @topic = find_topic(ct.topic_id) %>
-              <% @questions = choose_random_questions(@topic.id, ct.questions_count) %>
-              <% @questions.each do |q| %>
-                  <% @answers = q.answers %>
+              <% @questions[ct.topic_id].each do |q| %>
                   <h4><%= q.question_name %></h4>
-                  <%= render 'layouts/questions' %>
+                  <%= render 'layouts/questions', :q => q, :ct => ct %>
               <% end %>
           <% end %>
 

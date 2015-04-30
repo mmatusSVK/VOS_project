@@ -9,7 +9,7 @@ class TopicsController < ApplicationController
   end
 
   def index
-    @topic = @current_user.topics
+    @topic = @current_user.topics.where(is_hidden: false)
   end
 
   def show
@@ -33,7 +33,11 @@ class TopicsController < ApplicationController
 
   def destroy
     @topic = Topic.find(params[:id])
-    if @topic.destroy
+    @questions_ids = []
+    @topic.questions.each do |q|
+      @questions_ids << q.id
+    end
+    if Answer.where(question_id: @questions_ids).update_all(is_hidden: true) && Question.where(topic_id: @topic.id ).update_all(is_hidden: true) && @topic.update_attributes(is_hidden: true)
       flash[:success] = "Téma odstránená"
       redirect_to user_topics_path(@login_user)
     end
@@ -61,7 +65,7 @@ class TopicsController < ApplicationController
   end
 
   def topic_params
-    params.require(:topic).permit(:topic_name, :information)
+    params.require(:topic).permit(:topic_name, :information, :is_hidden)
   end
 
   def is_user_logged
@@ -73,7 +77,8 @@ class TopicsController < ApplicationController
 
   def am_i_right_user
      if(params[:id] != nil)
-        @user = User.find(Topic.find(params[:id]).user_id)
+        @topic = Topic.find(params[:id])
+        @user = User.find(@topic.user_id)
       else
         @user = @current_user
      end

@@ -20,7 +20,7 @@ class AnswersController < ApplicationController
   end
 
   def index
-    @answers = @select_question.answers
+    @answers = @select_question.answers.where(is_hidden: false)
   end
 
   def new
@@ -53,7 +53,7 @@ class AnswersController < ApplicationController
 
   def destroy
     @answer = Answer.find(params[:id])
-    if @answer.destroy
+    if @answer.update_attributes(is_hidden: true)
       flash[:success] = "Odpoveď odstránená"
       redirect_to user_topic_question_answers_path(@login_user, @select_topic, @select_question)
     end
@@ -62,7 +62,7 @@ class AnswersController < ApplicationController
   private
 
   def answer_params
-    params.require(:answer).permit(:answer_name, :is_right)
+    params.require(:answer).permit(:answer_name, :is_right, :is_hidden)
   end
 
   def answer_id_from_params
@@ -96,6 +96,6 @@ class AnswersController < ApplicationController
     @question = Question.find(params[:question_id])
     @topic = Topic.find(@question.topic_id)
     @user = User.find(@topic.user_id)
-    redirect_to(root_url) unless current_user?(@user)
+    redirect_to(root_url) unless current_user?(@user) || @question.is_hidden = true || @topic.is_hidden = true
   end
 end

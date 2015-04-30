@@ -17,6 +17,7 @@
           <%= t.time_select :duration, class: 'form-control' %>
 
           <%= t.hidden_field :starting_date %>
+          <%= t.hidden_field :is_hidden, value: false %>
 
           <ul class="dynamic_content">
             <% @current_tests.each do |ct| %>

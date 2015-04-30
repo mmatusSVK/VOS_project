@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150425090504) do
+ActiveRecord::Schema.define(version: 20150430144540) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20150425090504) do
     t.boolean  "is_right"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.boolean  "is_hidden"
   end
 
   create_table "current_tests", force: :cascade do |t|
@@ -37,6 +38,7 @@ ActiveRecord::Schema.define(version: 20150425090504) do
     t.integer  "topic_id"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.boolean  "is_hidden"
   end
 
   create_table "tests", force: :cascade do |t|
@@ -55,6 +57,7 @@ ActiveRecord::Schema.define(version: 20150425090504) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.text     "information"
+    t.boolean  "is_hidden"
   end
 
   create_table "user_answers", force: :cascade do |t|
@@ -65,6 +68,8 @@ ActiveRecord::Schema.define(version: 20150425090504) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.string   "starting_date"
+    t.integer  "topic_id"
+    t.integer  "question_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -81,5 +86,7 @@ ActiveRecord::Schema.define(version: 20150425090504) do
   add_foreign_key "tests", "users"
   add_foreign_key "topics", "users"
   add_foreign_key "user_answers", "answers"
+  add_foreign_key "user_answers", "questions"
   add_foreign_key "user_answers", "tests"
+  add_foreign_key "user_answers", "topics"
 end
