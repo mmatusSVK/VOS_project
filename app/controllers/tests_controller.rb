@@ -15,6 +15,15 @@ class TestsController < ApplicationController
   end
 
   def index
+    @tests = @login_user.tests
+    @tests.each do |t|
+      if(t.current_tests.count == 0)
+        t.update_attributes(is_hidden: true)
+      end
+      if(t.user_answers.count == 0)
+        t.destroy
+      end
+    end
     @tests = @login_user.tests.where(is_hidden: false)
   end
 
@@ -23,8 +32,13 @@ class TestsController < ApplicationController
     @current_tests= CurrentTest.new
     @user_topics = []
     @login_user.topics.each do |t|
-      if(t.questions.count > 0)
-        @user_topics << t;
+      if(t.questions.count > 0  && t.is_hidden == false)
+        t.questions.each do |q|
+          if q.answers.count > 0
+            @user_topics << t
+            break
+          end
+        end
       end
     end
   end

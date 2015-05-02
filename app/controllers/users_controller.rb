@@ -11,6 +11,11 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @topic = @user.topics
+    @topic.each do |t|
+      if t.is_hidden == true && t.user_answers.count == 0
+        t.destroy
+      end
+    end
   end
 
   def analyzed_tests

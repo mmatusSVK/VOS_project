@@ -23,12 +23,11 @@
             <li><%= link_to 'Vymaž otázku', [@login_user, @current_topic, @current_question], method: :delete, data: { confirm: 'Ste si istý, že chcete vymazať otázku?' } %></li>
       <% end %>
 
-      <% if @current_user.topics.count >= 1 %>
-            <li class="nav-header">Nastavenia testov</li>
-            <li><%= link_to 'Nový test', new_user_test_path(@current_user) %></li>
-            <li><%= link_to 'Všetky testy', user_tests_path(@current_user) %></li>
-            <li><%= link_to 'Odovzdané testy', user_analyzed_tests_path(@current_user) %></li>
-      <% end %>
+      <li class="nav-header">Nastavenia testov</li>
+      <li><%= link_to 'Nový test', new_user_test_path(@current_user) %></li>
+      <li><%= link_to 'Všetky testy', user_tests_path(@current_user) %></li>
+      <li><%= link_to 'Odovzdané testy', user_analyzed_tests_path(@current_user) %></li>
+
     </ul>
     </div>
   </div>

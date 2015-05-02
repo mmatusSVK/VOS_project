@@ -38,6 +38,7 @@ class TopicsController < ApplicationController
       @questions_ids << q.id
     end
     if Answer.where(question_id: @questions_ids).update_all(is_hidden: true) && Question.where(topic_id: @topic.id ).update_all(is_hidden: true) && @topic.update_attributes(is_hidden: true)
+      @topic.current_tests.delete_all
       flash[:success] = "Téma odstránená"
       redirect_to user_topics_path(@login_user)
     end

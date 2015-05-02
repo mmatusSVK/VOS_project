@@ -5,9 +5,9 @@
   <div class="col-md-9 my_content well">
     <h3><strong>Nový test</strong></h3>
 
-
     <div class="col-md-6 col-md-offset-3">
-      <%= form_for([@login_user, @test]) do |t| %>
+      <% if @user_topics.count > 0 %>
+          <%= form_for([@login_user, @test]) do |t| %>
           <%= render 'shared/error_messages', object: t.object %>
 
           <%= t.label :test_name, text="Názov testu"  %>
@@ -26,8 +26,11 @@
           <h2><%= link_to "Pridať ďalšiu tému", "#add", :id => "add-another" %>,
           <%= link_to("Odstrániť poslednú tému", "#delete", :class => "delete-current") %></h2>
           <%= t.submit "Vytvoriť test", class: "btn btn-primary" %>
-      <% end %>
 
+          <% end %>
+      <% else %>
+          <h3>Najprv vytvorte <%= link_to "tému", new_user_topic_path(@login_user) %> a pridajte otázky s odpoveďami.</h3>
+      <% end %>
 
     </div>
   </div>
