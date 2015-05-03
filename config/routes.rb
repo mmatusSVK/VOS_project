@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     get 'analyzed_tests'
     resources :tests do
         get 'concrete_test'
+        get 'concrete_test_questions'
         get 'active_test'
         post 'results'
         get 'make_test_active'

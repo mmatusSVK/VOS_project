@@ -5,38 +5,38 @@
 
     <h3><strong>Analýza testu: <%= @test.test_name %></strong></h3>
 
-    <h1>-------- Súhrn dát --------</h1>
+    <h1>---------- Súhrn dát ----------</h1>
     <div class="col-md-12">
-      <h3>Pomer dobrých a zlých odpovedí celkovo</h3>
+      <h3>Počet správnych/nesprávnych odpovedí celkovo</h3>
       <%= pie_chart @all_answers.group(:answer_value).count(:id) %>
     </div>
+
     <div class="col-md-12">
       <h3>Porovnanie odpovedí na jednotlivé témy</h3>
-      <% data = [] %>
-      <% values = [true, false] %>
-      <% values.each do |values| %>
-          <% item = {}
+
+      <% data = []
+         values = [true, false]
+         values.each do |values|
+             item = {}
              item[:name] = values.to_s
              item[:data] = []
-          %>
-          <% @all_topics.each do |topic| %>
-              <%
+             @all_topics.each do |topic|
                next if @all_topics_answers[topic.id].nil?
                array = []
                array << topic.topic_name
                array << @all_topics_answers[topic.id].where(answer_value: values).count
                item[:data] << array
-              %>
-          <% end %>
-          <% data << item %>
-      <% end %>
-      <%= column_chart data%>
+             end
+             data << item
+         end %>
+
+      <%= column_chart data %>
     </div>
 
-    <h1>-------- Témy jednotlivo --------</h1>
+    <h1>---------- Témy jednotlivo ----------</h1>
     <% @all_topics.each do |at| %>
         <div class="col-md-12">
-          <h3>Téma: <%= at.topic_name %> (Pomer počtu dobrých a zlých odpovedí)</h3>
+          <h3>Téma: <%= at.topic_name %> (Počet dobrých a zlých odpovedí)</h3>
           <%= pie_chart @all_topics_answers[at.id].group(:answer_value).count(:id) %>
         </div>
     <% end %>
@@ -47,32 +47,30 @@
 
     <% if show_question_analyzation %>
         <% @all_topics.each do |at| %>
-            <h1>-------- Otázky témy <%= at.topic_name %> --------</h1>
+            <h1>---------- Otázky témy <%= at.topic_name %> ----------</h1>
             <div class="col-md-12">
-            <h3>Pomer počtu dobrých a zlých odpovedí na jednotlivé otázky</h3>
-            <% data = [] %>
-            <% values = [true, false] %>
-            <% values.each do |values| %>
-                <% item = {}
+
+            <% data = []
+               values = [true, false]
+                values.each do |values|
+                    item = {}
                     item[:name] = values.to_s
                     item[:data] = []
-                %>
-                <% at.questions.each do |question| %>
-                    <%
+                    at.questions.each do |question|
                         next if @all_questions_answers[question.id].nil?
                         array = []
                         array << question.question_name
                         array << @all_questions_answers[question.id].where(answer_value: values).count
                         item[:data] << array
-                    %>
-                <% end %>
-                <% data << item %>
-            <% end %>
+                    end
+                    data << item
+                end %>
+
             <%= column_chart data%>
             </div>
         <% end %>
 
-        <h1>-------- Otázky jednotlivo --------</h1>
+        <h1>---------- Všetky otázky jednotlivo ----------</h1>
         <% @all_questions.each do |aq| %>
             <div class="col-md-12">
               <h3>Otázka : <%= aq.question_name %></h3>

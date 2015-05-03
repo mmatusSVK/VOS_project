@@ -178,6 +178,62 @@ class TestsController < ApplicationController
     end
   end
 
+
+  def concrete_test_questions
+    @test = Test.find(params[:test_id])
+    @starting_date = params[:starting_date]
+    @show_q = params[:show_q]
+    @show_q == 'q' ? set_question_analyzation(true) : set_question_analyzation(false)
+    @all_answers = UserAnswer.where(test_id: @test.id, starting_date: @starting_date)
+
+    @all_answers_group_by_question = {}
+    @all_questions = []
+    @all_topics = []
+    @all_topics_answers = {}
+    @all_questions_answers = {}
+
+    @all_answers.each do |aa|
+      string = aa.question_id.to_s + ' ' + aa.student_id.to_s
+      if @all_answers_group_by_question[string].nil?
+        @all_answers_group_by_question[string] = {q_id: aa.question_id, s_id: aa.student_id, t_id: aa.topic_id, val: aa.answer_value}
+      else
+        next unless @all_answers_group_by_question[string][:val]
+        if !aa.answer_value && @all_answers_group_by_question[string][:val]
+          @all_answers_group_by_question[string][:val] = false
+        end
+      end
+    end
+
+    @all_answers_group_by_question.each do |key, values|
+      @all_questions << values[:q_id]
+      @all_questions_answers[values[:q_id]] = nil
+      @all_topics << values[:t_id]
+      @all_topics_answers[values[:t_id]] = nil
+    end
+    @all_questions = Question.where(id: @all_questions)
+    @all_topics = Topic.where(id: @all_topics)
+
+
+    @all_topics_answers.each do |key, value|
+      @all_topics_answers[key] = []
+      @all_answers_group_by_question.each do |answers, inner_hash|
+        if inner_hash[:t_id] == key
+          data = UserAnswer.new(student_id: inner_hash[:s_id].to_i, answer_value: inner_hash[:val], topic_id: inner_hash[:t_id].to_i, question_id: inner_hash[:q_id].to_i)
+          @all_topics_answers[key] << data
+        end
+      end
+    end
+    @all_questions_answers.each do |key, value|
+      @all_questions_answers[key] = []
+      @all_answers_group_by_question.each do |answers, inner_hash|
+        if inner_hash[:q_id]== key
+          data = UserAnswer.new(student_id: inner_hash[:s_id].to_i, answer_value: inner_hash[:val], topic_id: inner_hash[:t_id].to_i, question_id: inner_hash[:q_id].to_i)
+          @all_questions_answers[key] << data
+        end
+      end
+    end
+  end
+
   private
 
   def test_params

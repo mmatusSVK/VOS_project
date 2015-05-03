@@ -1,0 +1,127 @@
+<% provide(:title, 'Analýza testu') %>
+
+<div class="row">
+  <div class="col-md-9 my_content anchor_line well">
+
+    <h3><strong>Analýza testu: <%= @test.test_name %></strong></h3>
+
+    <h1>---------- Súhrn dát ----------</h1>
+    <div class="col-md-12">
+      <h3>Počet správnych/nesprávnych zodpovedaní otázok</h3>
+
+      <% data = {}
+         values = [false, true]
+         data[true] = 0
+         data[false] = 0
+         values.each do |value|
+           @all_answers_group_by_question.each do |key, inner_hash|
+             data[value] += 1 if inner_hash[:val] == value
+           end
+         end %>
+
+      <%= pie_chart data %>
+    </div>
+    <div class="col-md-12">
+      <h3>Porovnanie zodpovedania otázok na témy celkovo</h3>
+
+      <% data = []
+         values = [true, false]
+         values.each do |values|
+             item = {}
+             item[:name] = values.to_s
+             item[:data] = []
+             @all_topics.each do |topic|
+                 next if @all_topics_answers[topic.id].nil?
+                 array = []
+                 array << topic.topic_name
+                 count = 0
+                 @all_topics_answers[topic.id].each do |at|
+                   if at.answer_value == values
+                     count += 1
+                   end
+                 end
+                 array << count
+                 item[:data] << array
+             end
+             data << item
+         end %>
+
+      <%= column_chart data%>
+    </div>
+
+    <h1>---------- Témy jednotlivo ----------</h1>
+    <% @all_topics.each do |at| %>
+        <div class="col-md-12">
+          <h3>Téma: <%= at.topic_name %> (Počet správne/nesprávne vyriešených otázok)</h3>
+
+          <% data = {}
+             values = [false, true]
+             data[true] = 0
+             data[false] = 0
+             values.each do |value|
+               @all_topics_answers[at.id].each do |ans|
+                 data[value] += 1 if ans.answer_value == value
+               end
+             end %>
+
+          <%= pie_chart data %>
+        </div>
+    <% end %>
+
+    <% unless show_question_analyzation %>
+        <%= link_to 'Zobraz analýzu odpovedí na jednotlivé otázky', user_test_concrete_test_questions_path(@login_user, @test, :starting_date => @starting_date, :show_q => "q") %>
+    <% end %>
+
+    <% if show_question_analyzation %>
+        <% @all_topics.each do |at| %>
+            <h1>---------- Otázky témy <%= at.topic_name %> ----------</h1>
+            <div class="col-md-12">
+
+              <% data = []
+                 values = [true, false]
+                 values.each do |values|
+                     item = {}
+                     item[:name] = values.to_s
+                     item[:data] = []
+                     at.questions.each do |question|
+                         next if @all_questions_answers[question.id].nil?
+                         array = []
+                         array << question.question_name
+                         count = 0
+                         @all_questions_answers[question.id].each do |aq|
+                           if aq[:answer_value] == values
+                             count += 1
+                           end
+                         end
+                         array << count
+                         item[:data] << array
+                     end
+                     data << item
+                 end %>
+
+              <%= column_chart data%>
+            </div>
+        <% end %>
+
+        <h1>---------- Všetky otázky jednotlivo ----------</h1>
+        <% @all_questions.each do |aq| %>
+            <div class="col-md-12">
+              <h3>Otázka : <%= aq.question_name %></h3>
+
+              <% data = {}
+                 values = [false, true]
+                 data[true] = 0
+                 data[false] = 0
+                 values.each do |value|
+                   @all_questions_answers[aq.id].each do |ans|
+                     data[value] += 1 if ans.answer_value == value
+                   end
+                 end %>
+
+              <%= pie_chart data %>
+            </div>
+        <% end %>
+    <% end %> <!-- end if show questions -->
+  </div>
+</div>
+
