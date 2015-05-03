@@ -25,6 +25,10 @@
             </li>
             <li class="divider"></li>
             <li>
+              <%= link_to "Zmena hesla", edit_user_path(@current_user)%>
+            </li>
+            <li class="divider"></li>
+            <li>
               <%= link_to "Odhlásiť sa", logout_path, method: "delete" %>
             </li>
           </ul>

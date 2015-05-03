@@ -1,6 +1,11 @@
 module TestsHelper
   def choose_random_questions(id, count)
-    Question.find_by_sql("SELECT q.id, q.question_name,q.topic_id FROM questions q JOIN answers a ON a.question_id = q.id WHERE q.topic_id = #{id} ORDER BY RANDOM() LIMIT #{count}")
+    Question.find_by_sql("SELECT x.id, x.question_name, x.topic_id FROM
+      (
+        SELECT DISTINCT ON (q.id) q.id, q.question_name,q.topic_id FROM questions q JOIN answers a ON a.question_id = q.id WHERE q.topic_id = #{id}
+      ) x
+      ORDER BY RANDOM()
+      LIMIT #{count}")
   end
 
   def find_topic(topic_id)

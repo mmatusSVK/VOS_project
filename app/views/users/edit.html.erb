@@ -1,0 +1,27 @@
+<% provide(:title, 'Uprava účtu') %>
+<% make_all_current_null %>
+
+<div class="row">
+  <div class="col-md-9 my_content well">
+
+    <h3><strong>Úprava účtu</strong></h3>
+
+    <div class="col-md-6 col-md-offset-3">
+      <%= form_for(@user) do |t| %>
+          <%= render 'shared/error_messages', object: t.object %>
+
+          <%= t.label :current_password, text="Staré heslo"  %>
+          <%= password_field_tag :current_password, params[:current_password], class: 'form-control' %>
+
+          <%= t.label :password, text="Heslo"  %>
+          <%= t.password_field :password, class: 'form-control' %>
+
+          <%= t.label :password_confirmation, text="Heslo znova"  %>
+          <%= t.password_field :password_confirmation, class: 'form-control' %>
+
+          <%= t.submit "Upraviť účet", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+
+</div>

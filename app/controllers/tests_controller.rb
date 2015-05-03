@@ -20,7 +20,7 @@ class TestsController < ApplicationController
       if(t.current_tests.count == 0)
         t.update_attributes(is_hidden: true)
       end
-      if(t.user_answers.count == 0)
+      if(t.is_hidden == true && t.user_answers.count == 0)
         t.destroy
       end
     end

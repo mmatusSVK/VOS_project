@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :is_user_logged, only: [:show, :analyzed_test]
-  before_action :am_i_right_user,   only: [:show, :analyzed_tests]
+  before_action :is_user_logged, only: [:show, :analyzed_test, :edit, :update]
+  before_action :am_i_right_user,   only: [:show, :analyzed_tests, :edit, :update]
 
   before_filter :set_user, only: :analyzed_tests
 
@@ -15,6 +15,25 @@ class UsersController < ApplicationController
       if t.is_hidden == true && t.user_answers.count == 0
         t.destroy
       end
+    end
+  end
+
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    unless @user.authenticate(params[:current_password])
+      flash[:danger].now = "Staré heslo sa nezhoduje"
+      render 'edit'
+      return
+    end
+    if @user.update_attributes(user_params)
+      flash[:success] = "Heslo zmenené"
+      redirect_to user_path(@user)
+    else
+      render 'edit'
     end
   end
 

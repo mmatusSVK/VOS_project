@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   validates(:login_name, uniqueness:{case_sensitive: false})
+  validates(:password, presence: true, length: {minimum: 8})
 
   default_scope -> { order(created_at: :desc) }
 
