@@ -155,8 +155,6 @@ class TestsController < ApplicationController
     @show_q == 'q' ? set_question_analyzation(true) : set_question_analyzation(false)
     @all_answers = UserAnswer.where(test_id: @test.id, starting_date: @starting_date).includes(:topic, :question)
 
-   # questions = Question.all(includes: { answers: {includes: :options}}) #n+1 problem
-
     @all_questions = []
     @all_topics = []
 
@@ -175,28 +173,6 @@ class TestsController < ApplicationController
     @all_questions.each do |aq|
       @all_questions_answers[aq.id] = @all_answers.where(question_id: aq.id)
     end
-
-    # @all_questions = []
-    # @all_topics = []
-    # @all_topics_answers = {}
-    # @all_questions_answers = {}
-    #
-    # @all_answers.each do |aa|
-    #   @all_questions << aa.question_id
-    #   @all_questions_answers[aa.question_id] = nil
-    #   @all_topics << aa.topic_id
-    #   @all_topics_answers[aa.topic_id] = nil
-    # end
-    # @all_questions = Question.where(id: @all_questions)
-    # @all_topics = Topic.where(id: @all_topics)
-    #
-    #
-    # @all_topics_answers.each do |key, val|
-    #   @all_topics_answers[key] = @all_answers.where(topic_id: key)
-    # end
-    # @all_questions_answers.each do |key, val|
-    #   @all_questions_answers[key] = @all_answers.where(question_id: key)
-    # end
   end
 
 

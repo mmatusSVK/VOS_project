@@ -161,6 +161,15 @@ p.marg_bot {
   margin-left: 200px;
   margin-right: auto;
 }
+
+.left{
+  text-align: left;
+}
+
+.nav-header{
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
 //end of CSS fo testing header
 
 // concrete test analyzation

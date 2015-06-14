@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   before_action :is_user_logged, only: [:show, :analyzed_test, :edit, :update]
   before_action :am_i_right_user,   only: [:show, :analyzed_tests, :edit, :update]
-
   before_filter :set_user, only: :analyzed_tests
 
   def set_user
@@ -25,7 +24,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     unless @user.authenticate(params[:current_password])
-      flash[:danger].now = "Staré heslo sa nezhoduje"
+      flash[:danger] = "Staré heslo sa nezhoduje"
       render 'edit'
       return
     end

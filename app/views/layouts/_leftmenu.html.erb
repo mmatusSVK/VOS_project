@@ -8,7 +8,7 @@
       <li><%= link_to 'Nová téma', new_user_topic_path(@current_user) %></li>
 
       <% if !@current_topic.nil? %>
-            <li class="nav-header">Téma: <%= @current_topic.topic_name %></li>
+            <li class="nav-header" title="Téma: <%= @current_topic.topic_name %>" >Téma: <%= @current_topic.topic_name %></li>
             <li><%= link_to 'Zoznam otázok', user_topic_questions_path(@login_user, @current_topic) %></li>
             <li><%= link_to 'Nová otázka', new_user_topic_question_path(@login_user, @current_topic) %></li>
             <li><%= link_to 'Uprav tému', edit_user_topic_path(@login_user, @current_topic) %></li>
@@ -16,7 +16,7 @@
       <% end %>
 
       <% if !@current_question.nil? %>
-            <li class="nav-header">Otázka:<%= @current_question.question_name %></li>
+            <li class="nav-header" title="Otázka:<%= @current_question.question_name %>" >Otázka:<%= @current_question.question_name %></li>
             <li><%= link_to 'Zoznam opovedí', user_topic_question_answers_path(@login_user, @current_topic, @current_question) %></li>
             <li><%= link_to 'Nová odpoveď', new_user_topic_question_answer_path(@login_user, @current_topic, @current_question) %></li>
             <li><%= link_to 'Uprav otázku', edit_user_topic_question_path(@login_user, @current_topic, @current_question) %></li>

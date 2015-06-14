@@ -4,7 +4,10 @@
 <div class="row">
 
   <div class="col-md-9 my_content well">
-
+    <h3><strong>Odovzdané testy</strong></h3>
+    <% if @one_test_data.size == 0 %>
+        <h3>Nie sú evidované žiadne odovzdané testy.</h3>
+    <% end %>
     <% @one_test_data.each do |key, item| %>
         <% test = item.test %>
         <h3><%= item.old_test_name %></h3>
