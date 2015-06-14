@@ -18,6 +18,7 @@ class ContactsController < ApplicationController
 
     if @message.valid?
       ContactMailer.send_contact(@message).deliver_now
+      ContactMailer.send_reply(@message).deliver_now
       flash[:success] = "Správa bola odoslaná"
       redirect_to root_path
     else
