@@ -11,8 +11,10 @@
 
           <% @current_tests.each do |ct| %>
               <% @questions[ct.topic_id].each do |q| %>
-                  <h4><%= q.question_name %></h4>
-                  <%= render 'layouts/questions', :q => q, :ct => ct %>
+                  <div class="questions_in_test">
+                    <h4><%= q.question_name %></h4>
+                    <%= render 'layouts/questions', :q => q, :ct => ct %>
+                  </div>
               <% end %>
           <% end %>
 

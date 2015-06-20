@@ -3,12 +3,20 @@
 <div class="row">
   <div class="col-md-9 my_content anchor_line well">
 
-    <h3><strong>Analýza testu: <%= @test.test_name %></strong></h3>
+    <h3><strong>Analýza testu: <%= @test.test_name %> (odpovedali: <%= @q_count %>)</strong></h3>
 
     <h1>---------- Súhrn dát ----------</h1>
     <div class="col-md-12">
       <h3>Počet správnych/nesprávnych odpovedí celkovo</h3>
-      <%= pie_chart @all_answers.group(:answer_value).count(:id) %>
+
+      <% values = [true, false]
+         data = {}
+         values.each do |values|
+           data[get_slovak_val_of(values)] = @all_answers.group(:answer_value).count(:id)[values]
+         end %>
+
+      <%= pie_chart data %>
+
     </div>
 
     <div class="col-md-12">
@@ -18,7 +26,7 @@
          values = [true, false]
          values.each do |values|
              item = {}
-             item[:name] = values.to_s
+             item[:name] = get_slovak_val_of(values)
              item[:data] = []
              @all_topics.each do |topic|
                next if @all_topics_answers[topic.id].nil?
@@ -37,12 +45,19 @@
     <% @all_topics.each do |at| %>
         <div class="col-md-12">
           <h3>Téma: <%= at.topic_name %> (Počet dobrých a zlých odpovedí)</h3>
-          <%= pie_chart @all_topics_answers[at.id].group(:answer_value).count(:id) %>
+
+          <% values = [true, false]
+             data = {}
+             values.each do |values|
+               data[get_slovak_val_of(values)] = @all_topics_answers[at.id].group(:answer_value).count(:id)[values]
+             end %>
+          <%= pie_chart data %>
+
         </div>
     <% end %>
 
     <% unless show_question_analyzation %>
-        <%= link_to 'Zobraz analýzu odpovedí na jednotlivé otázky', user_test_concrete_test_path(@login_user, @test, :starting_date => @starting_date, :show_q => "q") %>
+        <%= link_to 'Zobraz analýzu odpovedí na jednotlivé otázky', user_test_concrete_test_path(@login_user, @test, :starting_date => @starting_date, :show_q => "q", count: @q_count) %>
     <% end %>
 
     <% if show_question_analyzation %>
@@ -54,7 +69,7 @@
                values = [true, false]
                 values.each do |values|
                     item = {}
-                    item[:name] = values.to_s
+                    item[:name] = get_slovak_val_of(values)
                     item[:data] = []
                     at.questions.each do |question|
                         next if @all_questions_answers[question.id].nil?
@@ -74,7 +89,14 @@
         <% @all_questions.each do |aq| %>
             <div class="col-md-12">
               <h3>Otázka : <%= aq.question_name %></h3>
-              <%= pie_chart @all_questions_answers[aq.id].group(:answer_value).count(:id) %>
+
+              <% values = [true, false]
+                 data = {}
+                 values.each do |values|
+                   data[get_slovak_val_of(values)] = @all_questions_answers[aq.id].group(:answer_value).count(:id)[values]
+                 end %>
+              <%= pie_chart data %>
+
             </div>
         <% end %>
     <% end %>

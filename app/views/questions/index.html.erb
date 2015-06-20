@@ -6,7 +6,7 @@
   <div class="col-md-9 my_content well">
     <h3><strong>Otázky na tému <%= @select_topic.topic_name %></strong></h3>
     <p><strong>Popis:</strong> <%= @select_topic.information %></p>
-    <p>Počet otázok: <%= @select_topic.questions.count %></p>
+    <p>Počet otázok: <%= @select_topic.questions.where(is_hidden: false).count %></p>
 
     <% @question.each do |q| %>
         <h3><%= link_to q.question_name, [@login_user, @select_topic, q] %></h3>

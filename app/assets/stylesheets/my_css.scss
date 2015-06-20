@@ -170,6 +170,33 @@ p.marg_bot {
   text-overflow: ellipsis;
   overflow: hidden;
 }
+
+.nav-header{
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.row h4{
+  word-wrap: break-word;
+}
+
+.row h3{
+  word-wrap: break-word;
+}
+
+.row h2{
+  word-wrap: break-word;
+}
+
+.row h1{
+  word-wrap: break-word;
+}
+
+.row .questions_in_test{
+  padding-bottom: 10px;
+  padding-top: 10px;
+  border-bottom: 2px solid #C0C0C0;
+}
 //end of CSS fo testing header
 
 // concrete test analyzation

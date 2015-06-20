@@ -3,19 +3,19 @@
 <div class="row">
   <div class="col-md-9 my_content anchor_line well">
 
-    <h3><strong>Analýza testu: <%= @test.test_name %></strong></h3>
+    <h3><strong>Analýza testu: <%= @test.test_name %> (odpovedali: <%= @q_count %>)</strong></h3>
 
     <h1>---------- Súhrn dát ----------</h1>
     <div class="col-md-12">
       <h3>Počet správnych/nesprávnych zodpovedaní otázok</h3>
 
       <% data = {}
-         values = [false, true]
-         data[true] = 0
-         data[false] = 0
+         values = [get_slovak_val_of(false), get_slovak_val_of(true)]
+         data[get_slovak_val_of(true)] = 0
+         data[get_slovak_val_of(false)] = 0
          values.each do |value|
-           @all_answers_group_by_question.each do |key, inner_hash|
-             data[value] += 1 if inner_hash[:val] == value
+           @all_answers_group_by_question.each do |_key, inner_hash|
+             data[value] += 1 if get_slovak_val_of(inner_hash[:val]) == value
            end
          end %>
 
@@ -25,7 +25,7 @@
       <h3>Porovnanie zodpovedania otázok na témy celkovo</h3>
 
       <% data = []
-         values = [true, false]
+         values = [get_slovak_val_of(true), get_slovak_val_of(false)]
          values.each do |values|
              item = {}
              item[:name] = values.to_s
@@ -36,7 +36,7 @@
                  array << topic.topic_name
                  count = 0
                  @all_topics_answers[topic.id].each do |at|
-                   if at.answer_value == values
+                   if get_slovak_val_of(at.answer_value) == values
                      count += 1
                    end
                  end
@@ -55,12 +55,12 @@
           <h3>Téma: <%= at.topic_name %> (Počet správne/nesprávne vyriešených otázok)</h3>
 
           <% data = {}
-             values = [false, true]
-             data[true] = 0
-             data[false] = 0
+             values = [get_slovak_val_of(false), get_slovak_val_of(true)]
+             data[get_slovak_val_of(true)] = 0
+             data[get_slovak_val_of(false)] = 0
              values.each do |value|
                @all_topics_answers[at.id].each do |ans|
-                 data[value] += 1 if ans.answer_value == value
+                 data[value] += 1 if get_slovak_val_of(ans.answer_value) == value
                end
              end %>
 
@@ -69,7 +69,7 @@
     <% end %>
 
     <% unless show_question_analyzation %>
-        <%= link_to 'Zobraz analýzu odpovedí na jednotlivé otázky', user_test_concrete_test_questions_path(@login_user, @test, :starting_date => @starting_date, :show_q => "q") %>
+        <%= link_to 'Zobraz analýzu odpovedí na jednotlivé otázky', user_test_concrete_test_questions_path(@login_user, @test, :starting_date => @starting_date, :show_q => "q", count: @q_count) %>
     <% end %>
 
     <% if show_question_analyzation %>
@@ -78,7 +78,7 @@
             <div class="col-md-12">
 
               <% data = []
-                 values = [true, false]
+                 values = [get_slovak_val_of(true), get_slovak_val_of(false)]
                  values.each do |values|
                      item = {}
                      item[:name] = values.to_s
@@ -89,7 +89,7 @@
                          array << question.question_name
                          count = 0
                          @all_questions_answers[question.id].each do |aq|
-                           if aq[:answer_value] == values
+                           if get_slovak_val_of(aq[:answer_value]) == values
                              count += 1
                            end
                          end
@@ -109,12 +109,12 @@
               <h3>Otázka : <%= aq.question_name %></h3>
 
               <% data = {}
-                 values = [false, true]
-                 data[true] = 0
-                 data[false] = 0
+                 values = [get_slovak_val_of(false), get_slovak_val_of(true)]
+                 data[get_slovak_val_of(true)] = 0
+                 data[get_slovak_val_of(false)] = 0
                  values.each do |value|
                    @all_questions_answers[aq.id].each do |ans|
-                     data[value] += 1 if ans.answer_value == value
+                     data[value] += 1 if get_slovak_val_of(ans.answer_value) == value
                    end
                  end %>
 

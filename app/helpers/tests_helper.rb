@@ -8,6 +8,15 @@ module TestsHelper
       LIMIT #{count}")
   end
 
+  def get_slovak_val_of(boolean)
+    case(boolean)
+      when true
+        "Správna"
+      when false
+        "Nesprávna"
+    end
+  end
+
   def find_topic(topic_id)
     Topic.find(topic_id)
   end

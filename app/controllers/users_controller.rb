@@ -38,17 +38,28 @@ class UsersController < ApplicationController
 
   def analyzed_tests
     @tests = @login_user.tests
-
     @user_answers = []
     @tests.each do |t|
       @user_answers << t.user_answers
     end
 
+    user_keys = {}
     @one_test_data = {}
     @user_answers.each do |user_a|
-      user_a.each do |current_a|
-          @one_test_data[current_a.starting_date] = current_a
-        end
+      next unless user_a.size > 0
+
+       user_a.each do |current_a|
+         unless @one_test_data.key?(current_a.starting_date)
+           @one_test_data[current_a.starting_date] = []
+           @one_test_data[current_a.starting_date] << current_a
+           @one_test_data[current_a.starting_date] << 1
+           user_keys[current_a.student_id] = ""
+         end
+         unless user_keys.key?(current_a.student_id)
+           @one_test_data[current_a.starting_date][1] += 1
+           user_keys[current_a.student_id] = ""
+         end
+       end
     end
 
   end

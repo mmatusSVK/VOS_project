@@ -9,8 +9,8 @@
         <h3>Nie sú evidované žiadne odovzdané testy.</h3>
     <% end %>
     <% @one_test_data.each do |key, item| %>
-        <% test = item.test %>
-        <h3><%= item.old_test_name %></h3>
+        <% test = item[0].test %>
+        <h3><%= item[0].old_test_name %>, (odpovedali: <%= item[1] %>)</h3>
 
         <% time = DateTime.parse(key) %>
         <% hours = time.strftime("%k").to_i + 2 %>
@@ -19,8 +19,8 @@
         <% answer = "V grafoch sa zobrazia počty správnych/nesprávnych odpovedí bez ohľadu na to, či celá otázka bola žiakom zodpovedaná správne."
         question = "V grafoch sa zobrazia počty správne/nesprávne zodpovedaných otázok (v prípade, že jedna z odpovedí žiaka bola zodpovedaná zle, otázka je vyriešená nesprávne)." %>
 
-        <p class="marg_bot"><%= link_to "Analýza na základe odpovedí", user_test_concrete_test_path(@login_user, test, :starting_date => item.starting_date),  title: answer %>,
-        <%= link_to "Analýza na základe otázok", user_test_concrete_test_questions_path(@login_user, test, :starting_date => item.starting_date), title: question %></p>
+        <p class="marg_bot"><%= link_to "Analýza na základe odpovedí", user_test_concrete_test_path(@login_user, test, :starting_date => item[0].starting_date, :count => item[1]), title: answer %>,
+        <%= link_to "Analýza na základe otázok", user_test_concrete_test_questions_path(@login_user, test, :starting_date => item[0].starting_date, :count => item[1]), title: question %></p>
 
     <% end %>
 

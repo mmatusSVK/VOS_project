@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def full_title(page_title = '')
-    base_title = "VOS_projekt" #TODO name
+    base_title = "ILectures"
     if page_title.empty?
       base_title
     else
